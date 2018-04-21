@@ -19,3 +19,11 @@ if (NRF5_LIBS MATCHES " nrf-drv-common ")
 		${NRF5_SDK_ROOT}/components/drivers_nrf/common/nrf_drv_common.c
 	)
 endif()
+
+if (NRF5_LIBS MATCHES " nrf-drv-rtc ")
+	print_lib_usage(nrf-drv-rtc)
+	add_definitions(-DRTC_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/rtc/nrf_drv_rtc.c
+	)
+endif()
