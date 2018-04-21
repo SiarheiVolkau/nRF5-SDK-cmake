@@ -12,7 +12,6 @@ include_directories(
 	${CMAKE_CURRENT_LIST_DIR}/fatfs/src
 	${CMAKE_CURRENT_LIST_DIR}/fprintf
 
-	${CMAKE_CURRENT_LIST_DIR}/freertos/config
 #	${CMAKE_CURRENT_LIST_DIR}/freertos/portable/CMSIS/nrf51
 	${CMAKE_CURRENT_LIST_DIR}/freertos/portable/CMSIS/nrf52
 #	${CMAKE_CURRENT_LIST_DIR}/freertos/portable/GCC/nrf51
@@ -39,3 +38,9 @@ include_directories(
 	${CMAKE_CURRENT_LIST_DIR}/thedotfactory_fonts
 	${CMAKE_CURRENT_LIST_DIR}/tiny-AES128
 )
+
+if (NOT DEFINED FREERTOS_CONFIG_PATH)
+	include_directories(${CMAKE_CURRENT_LIST_DIR}/freertos/config)
+else()
+	include_directories(${FREERTOS_CONFIG_PATH})
+endif()

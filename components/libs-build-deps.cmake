@@ -10,7 +10,7 @@ list(APPEND dirs_list
 #	ant
 #	ble
 #	drivers_ext
-#	drivers_nrf
+	drivers_nrf
 #	experimental_802_15_4
 #	iot
 	libraries
