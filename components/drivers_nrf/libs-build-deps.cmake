@@ -20,6 +20,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-common ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-gpiote ")
+	print_lib_usage(nrf-drv-gpiote)
+	add_definitions(-DGPIOTE_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/gpiote/nrf_drv_gpiote.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-rtc ")
 	print_lib_usage(nrf-drv-rtc)
 	add_definitions(-DRTC_ENABLED=1)

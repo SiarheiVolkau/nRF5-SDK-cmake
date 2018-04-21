@@ -148,13 +148,13 @@ if (NRF5_TARGET_BOARD STREQUAL NRF6310
     OR NRF5_TARGET_BOARD STREQUAL D52DK1
     OR NRF5_TARGET_BOARD STREQUAL ARDUINO_PRIMO)
 	add_definitions(-DBOARD_${NRF5_TARGET_BOARD})
-	if (NOT (NRF5_LIBS MATCHES " nrf-bsp "))
-		set(NRF5_LIBS "${NRF5_LIBS} nrf-bsp ")
+	if (NOT (NRF5_LIBS MATCHES " nrf-board "))
+		set(NRF5_LIBS "${NRF5_LIBS} nrf-board ")
 	endif()
 elseif (DEFINED CUSTOM_BOARD_INCLUDE)
 	add_definitions(-DCUSTOM_BOARD_INC="${CUSTOM_BOARD_INCLUDE}")
-	if (NOT (NRF5_LIBS MATCHES " nrf-bsp "))
-		set(NRF5_LIBS "${NRF5_LIBS} nrf-bsp ")
+	if (NOT (NRF5_LIBS MATCHES " nrf-board "))
+		set(NRF5_LIBS "${NRF5_LIBS} nrf-board ")
 	endif()
 else()
 	message(FATAL_ERROR "NRF5_TARGET_BOARD not found, define it or define CUSTOM_BOARD_INCLUDE header file.\n"
@@ -186,14 +186,27 @@ if (DEFINED NRF5_SOFTDEVICE)
 	include_directories(${NRF5_SDK_ROOT}/components/softdevice/${NRF5_SOFTDEVICE}/headers)
 	include_directories(${NRF5_SDK_ROOT}/components/softdevice/${NRF5_SOFTDEVICE}/headers/nrf52)
 
-	# FIXME exclude unused sources for selected softdevice (ant vs ble)
-	add_definitions(-DNRF_SD_BLE_API_VERSION=6)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh.c
-		${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh_ant.c
-		${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh_ble.c
 		${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh_soc.c
 	)
+	if (NRF5_SOFTDEVICE STREQUAL "s112"
+	    OR NRF5_SOFTDEVICE STREQUAL "s132"
+	    OR NRF5_SOFTDEVICE STREQUAL "s140"
+	    OR NRF5_SOFTDEVICE STREQUAL "s332")
+		add_definitions(-DNRF_SDH_BLE_ENABLED=1)
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh_ble.c
+		)
+	endif()
+	if (NRF5_SOFTDEVICE STREQUAL "s212"
+	    OR NRF5_SOFTDEVICE STREQUAL "s332")
+		add_definitions(-DNRF_SDH_ANT_ENABLED=1)
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh_ant.c
+		)
+	endif()
+
 	if (NRF5_LIBS MATCHES " freertos ")
 		add_definitions(-DNRF_SDH_DISPATCH_MODEL=2)
 		set(NRF5_SOURCES ${NRF5_SOURCES}

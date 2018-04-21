@@ -3,7 +3,7 @@
 # Copyright (c) 2018 Siarhei Volkau
 # SPDX-License-Identifier: MIT
 #
-# Cmake build script for blinky_systick example on Nordic nRF52 DK
+# Cmake build script for bsp example on Nordic nRF52 DK
 # type following commands in console for build project
 #   mkdir build && cd build
 #   cmake -DCMAKE_BUILD_TYPE=<Debug|Release> ..
@@ -26,14 +26,14 @@ set(NRF5_TARGET_BOARD "PCA10040" CACHE STRING "Target Board" FORCE)
 set(CMAKE_TOOLCHAIN_FILE "${NRF5_SDK_ROOT}/compiler-gcc.cmake")
 
 # name of the final binary files
-project(blinky_systick C)
+project(bsp C)
 enable_language(ASM)
 
 # newlib variant nano or full
 set(NEWLIB "nano")
 
 # used SDK libs
-set(NRF5_LIBS "nrf-drv-systick")
+set(NRF5_LIBS "nrf-bsp nrf-timer nrf-utils")
 
 # variants are s112 s132 s140 s212 s332
 #set(NRF5_SOFTDEVICE "s132")

@@ -3,7 +3,7 @@
 # Copyright (c) 2018 Siarhei Volkau
 # SPDX-License-Identifier: MIT
 #
-# Cmake build script for blinky example on Nordic nRF52 DK (PCA10040)
+# Cmake build script for blinky example on Nordic nRF52 DK
 # type following commands in console for build project
 #   mkdir build && cd build
 #   cmake -DCMAKE_BUILD_TYPE=<Debug|Release> ..

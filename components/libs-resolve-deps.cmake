@@ -24,6 +24,6 @@ foreach(dir ${dirs_list})
 endforeach(dir)
 
 
-set(nrf-bsp-name "nRF5 Board Definition")
+set(nrf-board-name "nRF5 Board Definition")
 
-list(APPEND NRF5_LIB_LIST nrf-bsp)
+list(APPEND NRF5_LIB_LIST nrf-board)
