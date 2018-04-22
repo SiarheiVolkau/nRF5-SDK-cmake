@@ -49,6 +49,35 @@ if (NRF5_LIBS MATCHES " nrf-button ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-block-dev-empty ")
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/block_dev/empty/nrf_block_dev_empty.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-block-dev-qspi ")
+	if (NOT(NRF5_TARGET MATCHES "nRF52840"))
+		message(WARNING "QSPI library applicable only to nRF52840 -- skipped")
+	else()
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/libraries/block_dev/qspi/nrf_block_dev_qspi.c
+			${NRF5_SDK_ROOT}/components/libraries/block_dev/qspi/nrf_serial_flash_params.c
+		)
+	endif()
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-block-dev-ram ")
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/block_dev/ram/nrf_block_dev_ram.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-block-dev-sdc ")
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/block_dev/sdc/nrf_block_dev_sdc.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-cli ")
 	print_lib_usage(nrf-cli)
 	add_definitions(-DNRF_CLI_ENABLED=1)
@@ -196,6 +225,14 @@ if (NRF5_LIBS MATCHES " nrf-scheduler ")
 	add_definitions(-DAPP_SCHEDULER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/scheduler/app_scheduler.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-sdcard ")
+	print_lib_usage(nrf-sdcard)
+	add_definitions(-DAPP_SDCARD_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/sdcard/app_sdcard.c
 	)
 endif()
 

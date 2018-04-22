@@ -5,6 +5,15 @@
 #
 #******************************************************************************
 
+if (NRF5_LIBS MATCHES " fatfs ")
+	print_lib_usage(fatfs)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/external/fatfs/port/diskio_blkdev.c
+		${NRF5_SDK_ROOT}/external/fatfs/src/ff.c
+		${NRF5_SDK_ROOT}/external/fatfs/src/option/unicode.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " freertos ")
 	print_lib_usage(freertos)
 	set(NRF5_SOURCES ${NRF5_SOURCES}

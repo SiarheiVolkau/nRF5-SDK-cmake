@@ -6,6 +6,10 @@
 #******************************************************************************
 
 set(nrf-balloc-name "Nordic Block Allocator library")
+set(nrf-block-dev-empty-name "Nordic Empty Block Device library")
+set(nrf-block-dev-qspi-name "Nordic QSPI Block Device library")
+set(nrf-block-dev-ram-name "Nordic RAM Block Device library")
+set(nrf-block-dev-sdc-name "Nordic SDC Block Device library")
 set(nrf-bsp-name "Nordic BSP library")
 set(nrf-bsp-simple-name "Nordic Simplified BSP library")
 set(nrf-bsp-btn-name "Nordic BSP for BLE/ANT buttons library")
@@ -25,6 +29,7 @@ set(nrf-queue-name "Nordic Queue module")
 set(nrf-pwr-mgmt-name "Nordic Power Management module")
 set(nrf-ringbuf-name "Nordic Ring buffer module")
 set(nrf-scheduler-name "Nordic Scheduler library")
+set(nrf-sdcard-name "Nordic SD/MMC library")
 set(nrf-section-vars-name "Nordic Section Variables library")
 set(nrf-timer-name "Nordic Timer library")
 set(nrf-usbd-name "Nordic USB Device library")
@@ -39,6 +44,10 @@ set(nrf-utils-name "Nordic Utilities library")
 
 list(APPEND NRF5_LIB_LIST
 	nrf-balloc
+	nrf-block-dev-empty
+	nrf-block-dev-qspi
+	nrf-block-dev-ram
+	nrf-block-dev-sdc
 	nrf-bsp
 	nrf-bsp-simple
 	nrf-bsp-btn
@@ -58,6 +67,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-pwr-mgmt
 	nrf-ringbuf
 	nrf-scheduler
+	nrf-sdcard
 	nrf-section-vars
 	nrf-strerror
 	nrf-timer
@@ -82,6 +92,8 @@ if (DEFINED NRF5_SOFTDEVICE AND NOT(NRF5_LIBS MATCHES " nrf-utils "))
 endif()
 
 check_dependency(nrf-balloc nrf-utils)
+check_dependency(nrf-block-dev-sdc nrf-sdcard)
+check_dependency(nrf-block-dev-qspi nrf-drv-qspi)
 check_dependency(nrf-bsp nrf-timer)
 check_dependency(nrf-bsp nrf-button)
 check_dependency(nrf-bsp-btn nrf-bsp)
@@ -107,6 +119,7 @@ check_dependency(nrf-log-uart nrf-log)
 check_dependency(nrf-log-uart nrf-drv-uart)
 check_dependency(nrf-memobj nrf-balloc)
 check_dependency(nrf-pwr-mgmt nrf-drv-power)
+check_dependency(nrf-sdcard nrf-drv-spi-master)
 check_dependency(nrf-usbd-class-audio nrf-usbd)
 check_dependency(nrf-usbd-class-cdc nrf-usbd)
 check_dependency(nrf-usbd-class-hid-generic nrf-usbd-class-hid)

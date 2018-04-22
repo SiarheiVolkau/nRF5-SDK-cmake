@@ -61,6 +61,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-systick ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-spi-master ")
+	print_lib_usage(nrf-drv-spi-master)
+	add_definitions(-DSPI_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/spi_master/nrf_drv_spi.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-uart ")
 	print_lib_usage(nrf-drv-uart)
 	add_definitions(-DUART_ENABLED=1)
