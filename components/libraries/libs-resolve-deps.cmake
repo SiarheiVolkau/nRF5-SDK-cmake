@@ -15,6 +15,8 @@ set(nrf-cli-ble-uart-name "Nordic CLI UART over BLE backend")
 set(nrf-cli-cdc-acm-name "Nordic CLI CDC ACM (USB) backend")
 set(nrf-cli-rtt-name "Nordic CLI over Segger RTT backend")
 set(nrf-cli-uart-name "Nordic CLI over UART backend")
+set(nrf-csense-name "Nordic Capacitive sensor library")
+set(nrf-drv-csense-name "Nordic Capacitive sensor low-level library")
 set(nrf-memobj-name "Nordic Memory object module")
 set(nrf-queue-name "Nordic Queue module")
 set(nrf-pwr-mgmt-name "Nordic Power Management module")
@@ -43,6 +45,8 @@ list(APPEND NRF5_LIB_LIST
 	nrf-cli-cdc-acm
 	nrf-cli-rtt
 	nrf-cli-uart
+	nrf-csense
+	nrf-drv-csense
 	nrf-memobj
 	nrf-queue
 	nrf-pwr-mgmt
@@ -85,6 +89,8 @@ check_dependency(nrf-cli-rtt segger-rtt)
 check_dependency(nrf-cli-uart nrf-cli)
 check_dependency(nrf-cli-uart nrf-ringbuf)
 check_dependency(nrf-cli-uart nrf-drv-uart)
+check_dependency(nrf-csense nrf-drv-csense)
+check_dependency(nrf-drv-csense nrf-drv-saadc)
 check_dependency(nrf-memobj nrf-balloc)
 check_dependency(nrf-pwr-mgmt nrf-drv-power)
 check_dependency(nrf-usbd-class-audio nrf-usbd)

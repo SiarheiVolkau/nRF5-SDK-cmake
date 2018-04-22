@@ -101,6 +101,22 @@ if (NRF5_LIBS MATCHES " nrf-cli-uart ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-csense ")
+	print_lib_usage(nrf-csense)
+	add_definitions(-DNRF_CSENSE_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/csense/nrf_csense.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-drv-csense ")
+	print_lib_usage(nrf-drv-csense)
+	add_definitions(-DNRF_DRV_CSENSE_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/csense_drv/nrf_drv_csense.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-memobj ")
 	print_lib_usage(nrf-memobj)
 	set(NRF5_SOURCES ${NRF5_SOURCES}

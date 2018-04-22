@@ -44,6 +44,15 @@ if (NRF5_LIBS MATCHES " nrf-drv-rtc ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-saadc ")
+	print_lib_usage(nrf-drv-saadc)
+	add_definitions(-DSAADC_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/saadc/nrf_drv_saadc.c
+		${NRF5_SDK_ROOT}/components/drivers_nrf/hal/nrf_saadc.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-systick ")
 	print_lib_usage(nrf-drv-systick)
 	add_definitions(-DSYSTICK_ENABLED=1)
