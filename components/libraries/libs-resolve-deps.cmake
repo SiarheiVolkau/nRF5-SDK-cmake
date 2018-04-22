@@ -5,6 +5,7 @@
 #
 #******************************************************************************
 
+set(nrf-atomic-fifo-name "Nordic Atomic FIFO library")
 set(nrf-balloc-name "Nordic Block Allocator library")
 set(nrf-block-dev-empty-name "Nordic Empty Block Device library")
 set(nrf-block-dev-qspi-name "Nordic QSPI Block Device library")
@@ -21,6 +22,10 @@ set(nrf-cli-rtt-name "Nordic CLI over Segger RTT backend")
 set(nrf-cli-uart-name "Nordic CLI over UART backend")
 set(nrf-csense-name "Nordic Capacitive sensor library")
 set(nrf-drv-csense-name "Nordic Capacitive sensor low-level library")
+set(nrf-fds-name "Nordic Flash Data Storage library")
+set(nrf-fstorage-name "Nordic Flash Storage library")
+set(nrf-fstorage-nvmc-name "Nordic Flash Storage NVMC backend")
+set(nrf-fstorage-sd-name "Nordic Flash Storage Softdevice backend")
 set(nrf-log-name "Nordic Logging library")
 set(nrf-log-rtt-name "Nordic Logging to RTT backend")
 set(nrf-log-uart-name "Nordic Logging to UART backend")
@@ -31,6 +36,7 @@ set(nrf-ringbuf-name "Nordic Ring buffer module")
 set(nrf-scheduler-name "Nordic Scheduler library")
 set(nrf-sdcard-name "Nordic SD/MMC library")
 set(nrf-section-vars-name "Nordic Section Variables library")
+set(nrf-strerror-name "Nordic error code to string converter")
 set(nrf-timer-name "Nordic Timer library")
 set(nrf-usbd-name "Nordic USB Device library")
 set(nrf-usbd-class-audio-name "Nordic USB Audio class")
@@ -43,6 +49,7 @@ set(nrf-usbd-class-msc-name "Nordic USB MSC class")
 set(nrf-utils-name "Nordic Utilities library")
 
 list(APPEND NRF5_LIB_LIST
+	nrf-atomic-fifo
 	nrf-balloc
 	nrf-block-dev-empty
 	nrf-block-dev-qspi
@@ -59,6 +66,10 @@ list(APPEND NRF5_LIB_LIST
 	nrf-cli-uart
 	nrf-csense
 	nrf-drv-csense
+	nrf-fds
+	nrf-fstorage
+	nrf-fstorage-nvmc
+	nrf-fstorage-sd
 	nrf-log
 	nrf-log-rtt
 	nrf-log-uart
@@ -113,6 +124,9 @@ check_dependency(nrf-cli-uart nrf-timer)
 check_dependency(nrf-csense nrf-drv-csense)
 check_dependency(nrf-drv-csense nrf-drv-saadc)
 check_dependency(nrf-drv-csense nrf-drv-clock)
+check_dependency(nrf-fds nrf-fstorage)
+check_dependency(nrf-fstorage nrf-atomic-fifo)
+check_dependency(nrf-fstorage-nvmc nrf-drv-nvmc)
 check_dependency(nrf-log-rtt nrf-log)
 check_dependency(nrf-log-rtt segger-rtt)
 check_dependency(nrf-log-uart nrf-log)
@@ -133,4 +147,12 @@ if (NRF5_LIBS MATCHES " nrf-log ")
 	check_dependency(nrf-log nrf-cli)
 	check_dependency(nrf-cli nrf-queue)
 	check_dependency(nrf-utils nrf-strerror)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-fstorage ")
+	if (DEFINED NRF5_SOFTDEVICE)
+		add_dependency(nrf-fstorage-sd)
+	else()
+		add_dependency(nrf-fstorage-nvmc)
+	endif()
 endif()

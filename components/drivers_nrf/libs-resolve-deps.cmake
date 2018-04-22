@@ -8,6 +8,7 @@
 set(nrf-drv-clock-name "Nordic Clock driver")
 set(nrf-drv-common-name "Nordic Common drivers")
 set(nrf-drv-gpiote-name "Nordic GPIO driver")
+set(nrf-drv-nvmc-name "Nordic Non-Volatile Memory Controller driver")
 set(nrf-drv-power-name "Nordic Power driver")
 set(nrf-drv-rtc-name "Nordic RTC driver")
 set(nrf-drv-saadc-name "Nordic Successive Approximation ADC (SAADC) driver")
@@ -20,6 +21,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-drv-clock
 	nrf-drv-common
 	nrf-drv-gpiote
+	nrf-drv-nvmc
 	nrf-drv-power
 	nrf-drv-rtc
 	nrf-drv-saadc

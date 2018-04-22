@@ -219,7 +219,7 @@ if (DEFINED NRF5_SOFTDEVICE)
 	endif()
 
 	if (NRF5_LIBS MATCHES " nrf-log ")
-		add_definitions(-NRF_SDH_SOC_LOG_ENABLED=1)
+		add_definitions(-DNRF_SDH_SOC_LOG_ENABLED=1)
 	endif()
 else()
 	include_directories(${NRF5_SDK_ROOT}/components/drivers_nrf/nrf_soc_nosd)

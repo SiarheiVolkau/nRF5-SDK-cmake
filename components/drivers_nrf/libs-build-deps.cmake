@@ -28,6 +28,13 @@ if (NRF5_LIBS MATCHES " nrf-drv-gpiote ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-nvmc ")
+	print_lib_usage(nrf-drv-nvmc)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/hal/nrf_nvmc.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-power ")
 	print_lib_usage(nrf-drv-power)
 	add_definitions(-DPOWER_ENABLED=1)

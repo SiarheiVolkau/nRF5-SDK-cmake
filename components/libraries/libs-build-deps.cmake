@@ -5,6 +5,13 @@
 #
 #******************************************************************************
 
+if (NRF5_LIBS MATCHES " nrf-atomic-fifo ")
+	print_lib_usage(nrf-atomic-fifo)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/atomic_fifo/nrf_atfifo.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-balloc ")
 	print_lib_usage(nrf-balloc)
 	add_definitions(-DNRF_BALLOC_ENABLED=1)
@@ -146,6 +153,42 @@ if (NRF5_LIBS MATCHES " nrf-drv-csense ")
 	add_definitions(-DNRF_DRV_CSENSE_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/csense_drv/nrf_drv_csense.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-fds ")
+	print_lib_usage(nrf-fds)
+	add_definitions(-DFDS_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/fds/fds.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-fstorage ")
+	print_lib_usage(nrf-fstorage)
+	add_definitions(-DNRF_FSTORAGE_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/fstorage/nrf_fstorage.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-fstorage-sd ")
+	print_lib_usage(nrf-fstorage-sd)
+	add_definitions(-DFDS_BACKEND=NRF_FSTORAGE_SD)
+	if (NOT DEFINED NRF5_SOFTDEVICE)
+		message(FATAL_ERROR "nrf-fstorage-sd can't be used without Softdevice")
+	else()
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/libraries/fstorage/nrf_fstorage_sd.c
+		)
+	endif()
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-fstorage-nvmc ")
+	print_lib_usage(nrf-fstorage-nvmc)
+	add_definitions(-DFDS_BACKEND=NRF_FSTORAGE_NVMC)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/fstorage/nrf_fstorage_nvmc.c
 	)
 endif()
 
