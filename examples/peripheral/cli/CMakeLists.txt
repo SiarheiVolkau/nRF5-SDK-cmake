@@ -33,11 +33,15 @@ enable_language(ASM)
 set(NEWLIB "nano")
 
 # used SDK libs
-set(NRF5_LIBS "nrf-cli-uart nrf-cli-rtt nrf-cli nrf-utils nrf-timer nrf-drv-clock nrf-pwr-mgmt")
+set(NRF5_LIBS "nrf-cli-uart nrf-cli-rtt nrf-log-uart nrf-log-rtt nrf-utils nrf-timer nrf-drv-clock nrf-pwr-mgmt")
 
 if (NRF5_TARGET MATCHES "nRF52840")
 	set(NRF5_LIBS "${NRF5_LIBS} nrf-cli-cdc-acm")
 endif()
+
+add_definitions(-DUART0_ENABLED=1)
+add_definitions(-DNRF_CLI_BUILD_IN_CMDS=1)
+add_definitions(-DNRF_CLI_RTT_TERMINAL_ID=0)
 
 # variants are s112 s132 s140 s212 s332
 #set(NRF5_SOFTDEVICE "s132")
@@ -51,14 +55,8 @@ set(FLASH_AFTER_BUILD OFF)
 
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
-#place additional SDK defines here
-add_definitions(-DNRF_CLI_ECHO_STATUS=1)
-add_definitions(-DNRF_CLI_BUILD_IN_CMDS=1)
-add_definitions(-DNRF_CLI_HISTORY_ENABLED=1)
-add_definitions(-DNRF_CLI_VT100_COLORS_ENABLED=1)
-add_definitions(-DUART0_ENABLED=1)
-add_definitions(-DNRF_CLI_RTT_TERMINAL_ID=0)
-
+#place SDK default redefinitions here
+#add_definitions(-DNRF_LOG_USES_COLORS=0)
 if (NRF5_TARGET MATCHES "nRF52840")
 	add_definitions(-DAPP_USBD_EVENT_QUEUE_ENABLE=0)
 	add_definitions(-DAPP_USBD_VID=0x1915)

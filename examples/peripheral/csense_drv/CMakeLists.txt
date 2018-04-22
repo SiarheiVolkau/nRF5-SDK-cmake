@@ -33,12 +33,10 @@ enable_language(ASM)
 set(NEWLIB "nano")
 
 # used SDK libs
-set(NRF5_LIBS "nrf-cli nrf-cli-uart nrf-timer nrf-utils nrf-drv-csense")
+set(NRF5_LIBS "nrf-cli-uart nrf-cli-rtt nrf-log-uart nrf-log-rtt nrf-timer nrf-utils nrf-drv-csense")
 
-add_definitions(-DNRF_CLI_ECHO_STATUS=1)
-add_definitions(-DNRF_CLI_HISTORY_ENABLED=1)
-add_definitions(-DNRF_CLI_VT100_COLORS_ENABLED=1)
 add_definitions(-DUART0_ENABLED=1)
+#add_definitions(-DNRF_LOG_DEFERRED=1)
 
 # variants are s112 s132 s140 s212 s332
 #set(NRF5_SOFTDEVICE "s132")
@@ -52,8 +50,11 @@ set(FLASH_AFTER_BUILD OFF)
 
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
-#place additional SDK defines here
-#add_definitions(-D)
+#place SDK default redefinitions here
+#add_definitions(-DNRF_LOG_USES_COLORS=0)
+#add_definitions(-DNRF_CLI_ECHO_STATUS=0)
+#add_definitions(-DNRF_CLI_HISTORY_ENABLED=0)
+#add_definitions(-DNRF_CLI_VT100_COLORS_ENABLED=0)
 
 add_executable(${CMAKE_PROJECT_NAME}
 	main.c

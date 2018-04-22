@@ -51,9 +51,8 @@ set(FLASH_AFTER_BUILD OFF)
 
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
-message(${NRF5_LIBS})
-#place additional SDK defines here
-#add_definitions(-DDEBUG_NRF)
+#place SDK default redefinitions here
+#add_definitions(-DNRF_LOG_USES_COLORS=0)
 
 add_executable(${CMAKE_PROJECT_NAME}
 	main.c
