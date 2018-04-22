@@ -17,6 +17,9 @@ set(nrf-cli-rtt-name "Nordic CLI over Segger RTT backend")
 set(nrf-cli-uart-name "Nordic CLI over UART backend")
 set(nrf-csense-name "Nordic Capacitive sensor library")
 set(nrf-drv-csense-name "Nordic Capacitive sensor low-level library")
+set(nrf-log-name "Nordic Logging library")
+set(nrf-log-rtt-name "Nordic Logging to RTT backend")
+set(nrf-log-uart-name "Nordic Logging to UART backend")
 set(nrf-memobj-name "Nordic Memory object module")
 set(nrf-queue-name "Nordic Queue module")
 set(nrf-pwr-mgmt-name "Nordic Power Management module")
@@ -47,12 +50,16 @@ list(APPEND NRF5_LIB_LIST
 	nrf-cli-uart
 	nrf-csense
 	nrf-drv-csense
+	nrf-log
+	nrf-log-rtt
+	nrf-log-uart
 	nrf-memobj
 	nrf-queue
 	nrf-pwr-mgmt
 	nrf-ringbuf
 	nrf-scheduler
 	nrf-section-vars
+	nrf-strerror
 	nrf-timer
 	nrf-usbd
 	nrf-usbd-class-audio
@@ -94,6 +101,10 @@ check_dependency(nrf-cli-uart nrf-timer)
 check_dependency(nrf-csense nrf-drv-csense)
 check_dependency(nrf-drv-csense nrf-drv-saadc)
 check_dependency(nrf-drv-csense nrf-drv-clock)
+check_dependency(nrf-log-rtt nrf-log)
+check_dependency(nrf-log-rtt segger-rtt)
+check_dependency(nrf-log-uart nrf-log)
+check_dependency(nrf-log-uart nrf-drv-uart)
 check_dependency(nrf-memobj nrf-balloc)
 check_dependency(nrf-pwr-mgmt nrf-drv-power)
 check_dependency(nrf-usbd-class-audio nrf-usbd)
@@ -104,3 +115,9 @@ check_dependency(nrf-usbd-class-hid-mouse nrf-usbd-class-hid)
 check_dependency(nrf-usbd-class-hid nrf-usbd)
 check_dependency(nrf-usbd-class-msc nrf-usbd)
 check_dependency(nrf-usbd nrf-drv-usbd)
+
+if (NRF5_LIBS MATCHES " nrf-log ")
+	check_dependency(nrf-log nrf-cli)
+	check_dependency(nrf-cli nrf-queue)
+	check_dependency(nrf-utils nrf-strerror)
+endif()

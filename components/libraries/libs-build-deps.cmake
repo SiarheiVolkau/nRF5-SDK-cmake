@@ -52,6 +52,9 @@ endif()
 if (NRF5_LIBS MATCHES " nrf-cli ")
 	print_lib_usage(nrf-cli)
 	add_definitions(-DNRF_CLI_ENABLED=1)
+	add_definitions(-DNRF_CLI_ECHO_STATUS=1)
+	add_definitions(-DNRF_CLI_HISTORY_ENABLED=1)
+	add_definitions(-DNRF_CLI_VT100_COLORS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/cli/nrf_cli.c
 	)
@@ -117,6 +120,39 @@ if (NRF5_LIBS MATCHES " nrf-drv-csense ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-log ")
+	print_lib_usage(nrf-log)
+	add_definitions(-DNRF_LOG_ENABLED=1)
+	add_definitions(-DNRF_LOG_USES_COLORS=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_frontend.c
+		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_str_formatter.c
+		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_default_backends.c
+		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_backend_serial.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-log-rtt ")
+	print_lib_usage(nrf-log-rtt)
+	add_definitions(-DNRF_LOG_BACKEND_RTT_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_backend_rtt.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-log-uart ")
+	print_lib_usage(nrf-log-uart)
+	add_definitions(-DNRF_LOG_BACKEND_UART_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_backend_uart.c
+	)
+	if (NOT NRF5_LIBS MATCHES " nrf-cli-uart ")
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/libraries/cli/uart/nrf_cli_uart.c
+		)
+	endif()
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-memobj ")
 	print_lib_usage(nrf-memobj)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -168,6 +204,14 @@ if (NRF5_LIBS MATCHES " nrf-section-vars ")
 	add_definitions(-DNRF_SECTION_ITER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/experimental_section_vars/nrf_section_iter.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-strerror ")
+	print_lib_usage(nrf-strerror)
+	add_definitions(-DNRF_STRERROR_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/strerror/nrf_strerror.c
 	)
 endif()
 
