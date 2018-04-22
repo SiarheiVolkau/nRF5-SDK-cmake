@@ -10,4 +10,5 @@ MEMORY
 }
 
 
+INCLUDE "nrf52_named_sections.ld"
 INCLUDE "nrf52_common.ld"

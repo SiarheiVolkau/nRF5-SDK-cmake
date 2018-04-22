@@ -20,3 +20,19 @@ if (NRF5_LIBS MATCHES " freertos ")
 		${NRF5_SDK_ROOT}/external/freertos/portable/GCC/nrf52/port.c
 	)
 endif()
+
+if (NRF5_LIBS MATCHES " nrf-fprintf ")
+	print_lib_usage(nrf-fprintf)
+	add_definitions(-DNRF_FPRINTF_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/external/fprintf/nrf_fprintf.c
+		${NRF5_SDK_ROOT}/external/fprintf/nrf_fprintf_format.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " segger-rtt ")
+	print_lib_usage(segger-rtt)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/external/segger_rtt/SEGGER_RTT.c
+	)
+endif()

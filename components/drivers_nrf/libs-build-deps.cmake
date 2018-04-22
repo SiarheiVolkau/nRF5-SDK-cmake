@@ -28,6 +28,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-gpiote ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-power ")
+	print_lib_usage(nrf-drv-power)
+	add_definitions(-DPOWER_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/power/nrf_drv_power.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-rtc ")
 	print_lib_usage(nrf-drv-rtc)
 	add_definitions(-DRTC_ENABLED=1)
@@ -41,5 +49,21 @@ if (NRF5_LIBS MATCHES " nrf-drv-systick ")
 	add_definitions(-DSYSTICK_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/drivers_nrf/systick/nrf_drv_systick.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-drv-uart ")
+	print_lib_usage(nrf-drv-uart)
+	add_definitions(-DUART_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/uart/nrf_drv_uart.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-drv-usbd ")
+	print_lib_usage(nrf-drv-usbd)
+	add_definitions(-DUSBD_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/usbd/nrf_drv_usbd.c
 	)
 endif()

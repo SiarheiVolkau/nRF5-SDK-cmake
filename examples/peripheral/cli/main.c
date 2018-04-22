@@ -187,19 +187,23 @@ NRF_CLI_DEF(m_cli_cdc_acm,
             '\r',
             CLI_EXAMPLE_LOG_QUEUE_SIZE);
 #endif
+
+#if NRF_MODULE_ENABLED(NRF_CLI_UART)
 NRF_CLI_UART_DEF(m_cli_uart_transport, 0, 64, 16);
 NRF_CLI_DEF(m_cli_uart,
             "uart_cli:~$ ",
             &m_cli_uart_transport.transport,
             '\r',
             CLI_EXAMPLE_LOG_QUEUE_SIZE);
+#endif
+#if NRF_MODULE_ENABLED(NRF_CLI_RTT)
 NRF_CLI_RTT_DEF(m_cli_rtt_transport);
 NRF_CLI_DEF(m_cli_rtt,
             "rtt_cli:~$ ",
             &m_cli_rtt_transport.transport,
             '\n',
             CLI_EXAMPLE_LOG_QUEUE_SIZE);
-
+#endif
 static void timer_handle(void * p_context)
 {
     UNUSED_PARAMETER(p_context);
@@ -218,10 +222,14 @@ static void cli_start(void)
     ret = nrf_cli_start(&m_cli_cdc_acm);
     APP_ERROR_CHECK(ret);
 #endif
+#if NRF_MODULE_ENABLED(NRF_CLI_UART)
     ret = nrf_cli_start(&m_cli_uart);
     APP_ERROR_CHECK(ret);
+#endif
+#if NRF_MODULE_ENABLED(NRF_CLI_RTT)
     ret = nrf_cli_start(&m_cli_rtt);
     APP_ERROR_CHECK(ret);
+#endif
 }
 
 int main(void)
@@ -252,15 +260,19 @@ int main(void)
     APP_ERROR_CHECK(ret);
 #endif
 
+#if NRF_MODULE_ENABLED(NRF_CLI_UART)
     nrf_drv_uart_config_t uart_config = NRF_DRV_UART_DEFAULT_CONFIG;
     uart_config.pseltxd = TX_PIN_NUMBER;
     uart_config.pselrxd = RX_PIN_NUMBER;
     uart_config.hwfc    = NRF_UART_HWFC_DISABLED;
     ret = nrf_cli_init(&m_cli_uart, &uart_config, true, true, NRF_LOG_SEVERITY_INFO);
     APP_ERROR_CHECK(ret);
+#endif
 
+#if NRF_MODULE_ENABLED(NRF_CLI_RTT)
     ret = nrf_cli_init(&m_cli_rtt, NULL, true, true, NRF_LOG_SEVERITY_INFO);
     APP_ERROR_CHECK(ret);
+#endif
 
 #ifdef BOARD_PCA10056
     static const app_usbd_config_t usbd_config = {
@@ -289,8 +301,12 @@ int main(void)
     {
         UNUSED_RETURN_VALUE(NRF_LOG_PROCESS());
 
+#if NRF_MODULE_ENABLED(NRF_CLI_RTT)
         nrf_cli_process(&m_cli_rtt);
+#endif
+#if NRF_MODULE_ENABLED(NRF_CLI_UART)
         nrf_cli_process(&m_cli_uart);
+#endif
 #ifdef BOARD_PCA10056
 #if APP_USBD_EVENT_QUEUE_ENABLE
         while (app_usbd_event_queue_process())
