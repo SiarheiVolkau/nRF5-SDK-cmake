@@ -164,6 +164,14 @@ if (NRF5_LIBS MATCHES " nrf-fds ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-fifo ")
+	print_lib_usage(nrf-fifo)
+	add_definitions(-DAPP_FIFO_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/fifo/app_fifo.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-fstorage ")
 	print_lib_usage(nrf-fstorage)
 	add_definitions(-DNRF_FSTORAGE_ENABLED=1)
@@ -248,6 +256,7 @@ endif()
 if (NRF5_LIBS MATCHES " nrf-pwr-mgmt ")
 	print_lib_usage(nrf-pwr-mgmt)
 	add_definitions(-DNRF_PWR_MGMT_ENABLED=1)
+	add_definitions(-DAPP_SHUTDOWN_HANDLER_PRIORITY=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c
 	)
@@ -316,6 +325,31 @@ if (NRF5_LIBS MATCHES " nrf-timer ")
 			${NRF5_SDK_ROOT}/components/libraries/timer/app_timer.c
 		)
 	endif()
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-uart ")
+	add_definitions(-DAPP_UART_ENABLED=1)
+	if (NOT NRF5_LIBS MATCHES " nrf-uart-fifo ")
+		print_lib_usage(nrf-uart)
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/libraries/uart/app_uart.c
+		)
+	endif()
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-uart-fifo ")
+	print_lib_usage(nrf-uart-fifo)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/uart/app_uart_fifo.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-uart-retarget ")
+	print_lib_usage(nrf-uart-retarget)
+	add_definitions(-DRETARGET_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/uart/retarget.c
+	)
 endif()
 
 if (NRF5_LIBS MATCHES " nrf-usbd ")

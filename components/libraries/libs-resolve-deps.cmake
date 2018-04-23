@@ -23,6 +23,7 @@ set(nrf-cli-uart-name "Nordic CLI over UART backend")
 set(nrf-csense-name "Nordic Capacitive sensor library")
 set(nrf-drv-csense-name "Nordic Capacitive sensor low-level library")
 set(nrf-fds-name "Nordic Flash Data Storage library")
+set(nrf-fifo-name "Nordic FIFO implementation")
 set(nrf-fstorage-name "Nordic Flash Storage library")
 set(nrf-fstorage-nvmc-name "Nordic Flash Storage NVMC backend")
 set(nrf-fstorage-sd-name "Nordic Flash Storage Softdevice backend")
@@ -38,6 +39,9 @@ set(nrf-sdcard-name "Nordic SD/MMC library")
 set(nrf-section-vars-name "Nordic Section Variables library")
 set(nrf-strerror-name "Nordic error code to string converter")
 set(nrf-timer-name "Nordic Timer library")
+set(nrf-uart-name "Nordic UART library")
+set(nrf-uart-fifo-name "Nordic UART library (FIFO based)")
+set(nrf-uart-retarget-name "Nordic UART Retarget functionality")
 set(nrf-usbd-name "Nordic USB Device library")
 set(nrf-usbd-class-audio-name "Nordic USB Audio class")
 set(nrf-usbd-class-cdc-name "Nordic USB CDC class")
@@ -67,6 +71,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-csense
 	nrf-drv-csense
 	nrf-fds
+	nrf-fifo
 	nrf-fstorage
 	nrf-fstorage-nvmc
 	nrf-fstorage-sd
@@ -82,6 +87,9 @@ list(APPEND NRF5_LIB_LIST
 	nrf-section-vars
 	nrf-strerror
 	nrf-timer
+	nrf-uart
+	nrf-uart-fifo
+	nrf-uart-retarget
 	nrf-usbd
 	nrf-usbd-class-audio
 	nrf-usbd-class-cdc
@@ -134,6 +142,10 @@ check_dependency(nrf-log-uart nrf-drv-uart)
 check_dependency(nrf-memobj nrf-balloc)
 check_dependency(nrf-pwr-mgmt nrf-drv-power)
 check_dependency(nrf-sdcard nrf-drv-spi-master)
+check_dependency(nrf-uart nrf-drv-uart)
+check_dependency(nrf-uart-fifo nrf-uart)
+check_dependency(nrf-uart-fifo nrf-fifo)
+check_dependency(nrf-uart-retarget nrf-uart)
 check_dependency(nrf-usbd-class-audio nrf-usbd)
 check_dependency(nrf-usbd-class-cdc nrf-usbd)
 check_dependency(nrf-usbd-class-hid-generic nrf-usbd-class-hid)

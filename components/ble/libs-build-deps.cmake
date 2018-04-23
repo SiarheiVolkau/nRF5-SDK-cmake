@@ -15,6 +15,14 @@ if (NRF5_LIBS MATCHES " nrf-ble ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-ble-advertising ")
+	print_lib_usage(nrf-ble-advertising)
+	add_definitions(-DBLE_ADVERTISING_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/ble/ble_advertising/ble_advertising.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-ble-peripheral ")
 	print_lib_usage(nrf-ble-peripheral)
 	add_definitions(-DNRF_BLE_CONN_PARAMS_ENABLED=1)
