@@ -8,7 +8,7 @@
 set(dirs_list "")
 list(APPEND dirs_list
 #	ant
-#	ble
+	ble
 #	drivers_ext
 	drivers_nrf
 #	experimental_802_15_4

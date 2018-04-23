@@ -41,6 +41,7 @@ endif()
 
 if (NRF5_LIBS MATCHES " segger-rtt ")
 	print_lib_usage(segger-rtt)
+	add_definitions(-DSEGGER_RTT_CONFIG_DEFAULT_MODE=0)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/external/segger_rtt/SEGGER_RTT.c
 	)

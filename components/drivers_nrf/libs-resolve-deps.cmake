@@ -34,6 +34,7 @@ list(APPEND NRF5_LIB_LIST
 check_dependency(nrf-drv-clock nrf-drv-common)
 check_dependency(nrf-drv-clock nrf-utils)
 check_dependency(nrf-drv-gpiote nrf-drv-common)
+check_dependency(nrf-drv-power nrf-drv-common)
 check_dependency(nrf-drv-rtc nrf-drv-common)
 check_dependency(nrf-drv-saadc nrf-drv-common)
 check_dependency(nrf-drv-spi-master nrf-drv-common)

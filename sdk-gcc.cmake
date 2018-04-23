@@ -196,6 +196,7 @@ if (DEFINED NRF5_SOFTDEVICE)
 	    OR NRF5_SOFTDEVICE STREQUAL "s140"
 	    OR NRF5_SOFTDEVICE STREQUAL "s332")
 		add_definitions(-DNRF_SDH_BLE_ENABLED=1)
+		add_definitions(-DNRF_SD_BLE_API_VERSION=5)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh_ble.c
 		)
