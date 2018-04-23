@@ -29,3 +29,19 @@ if (NRF5_LIBS MATCHES " nrf-board ")
 		${NRF5_SDK_ROOT}/components/boards/boards.c
 	)
 endif()
+
+if (NRF5_LIBS MATCHES " cmsis-dsp ")
+	print_lib_usage(cmsis-dsp)
+	if (NRF5_TARGET MATCHES "nRF52832" OR NRF5_TARGET MATCHES "nRF52840")
+		add_definitions(-DARM_MATH_CM4)
+		set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES} ${NRF5_SDK_ROOT}/components/toolchain/cmsis/dsp/GCC/libarm_cortexM4lf_math.a)
+	elseif(NRF5_TARGET MATCHES "nRF52810")
+		add_definitions(-DARM_MATH_CM4)
+		set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES} ${NRF5_SDK_ROOT}/components/toolchain/cmsis/dsp/GCC/libarm_cortexM4l_math.a)
+	else() # nrf51 falls here too
+		message(FATAL_ERROR
+			"Please set valid NRF5_TARGET."
+			"For now valid targets are: nRF52810 nRF52832 nRF52840."
+		)
+	endif()
+endif()

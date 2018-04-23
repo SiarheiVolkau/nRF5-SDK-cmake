@@ -6,6 +6,7 @@
 #******************************************************************************
 
 set(NRF5_SOURCES "" CACHE INTERNAL "")
+set(NRF5_LINK_LIBRARIES "" CACHE INTERNAL "")
 
 if (NRF5_TARGET MATCHES "nRF52")
 	set(GCC_ARM_CPU_VARIANT "cortex-m4")
@@ -304,7 +305,7 @@ set(CMAKE_C_LINK_EXECUTABLE
         "${CMAKE_C_LINKER} ${LINKER_SEARCH_LOCATIONS} -T${LINKER_SCRIPT} -Map <TARGET>.map --gc-sections -o <TARGET> <OBJECTS> ${STARTFILES} <LINK_LIBRARIES> ${STDLIBS}")
 
 set(NRF5_SOURCES ${NRF5_SOURCES} CACHE INTERNAL "")
-
+set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES} CACHE INTERNAL "")
 #
 # flashing binaries to board
 #

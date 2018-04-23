@@ -196,6 +196,11 @@ if (NRF5_LIBS MATCHES " nrf-log ")
 	print_lib_usage(nrf-log)
 	add_definitions(-DNRF_LOG_ENABLED=1)
 	add_definitions(-DNRF_LOG_USES_COLORS=1)
+
+	# workaround for bug in NRF_LOG_PUSH implementation
+	# fixed in SDK 15.0.0
+	add_definitions(-DNRF_LOG_DEFERRED=0)
+
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_frontend.c
 		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_str_formatter.c
