@@ -91,6 +91,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-power ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-rng ")
+	print_lib_usage(nrf-drv-rng)
+	add_definitions(-DRNG_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/rng/nrf_drv_rng.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-rtc ")
 	print_lib_usage(nrf-drv-rtc)
 	add_definitions(-DRTC_ENABLED=1)
