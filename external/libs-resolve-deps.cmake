@@ -6,12 +6,14 @@
 #******************************************************************************
 
 set(fatfs-name "FatFS libary")
+set(font-orkney-name "Orkney font (8pt & 24pt) library")
 set(freertos-name "FreeRTOS")
 set(nrf-fprintf-name "Nordic fprintf like function")
 set(segger-rtt-name "Segger RTT library")
 
 list(APPEND NRF5_LIB_LIST
 	fatfs
+	font-orkney
 	freertos
 	nrf-fprintf
 	segger-rtt

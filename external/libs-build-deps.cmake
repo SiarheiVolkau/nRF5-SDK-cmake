@@ -14,6 +14,14 @@ if (NRF5_LIBS MATCHES " fatfs ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " font-orkney ")
+	print_lib_usage(font-orkney)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/external/thedotfactory_fonts/orkney8pts.c
+		${NRF5_SDK_ROOT}/external/thedotfactory_fonts/orkney24pts.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " freertos ")
 	print_lib_usage(freertos)
 	set(NRF5_SOURCES ${NRF5_SOURCES}

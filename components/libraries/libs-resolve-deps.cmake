@@ -27,6 +27,7 @@ set(nrf-fifo-name "Nordic FIFO implementation")
 set(nrf-fstorage-name "Nordic Flash Storage library")
 set(nrf-fstorage-nvmc-name "Nordic Flash Storage NVMC backend")
 set(nrf-fstorage-sd-name "Nordic Flash Storage Softdevice backend")
+set(nrf-gfx-name "Nordic Drawing graphics library")
 set(nrf-led-softblink-name "Nordic LED smooth blink library")
 set(nrf-log-name "Nordic Logging library")
 set(nrf-log-rtt-name "Nordic Logging to RTT backend")
@@ -42,6 +43,7 @@ set(nrf-sdcard-name "Nordic SD/MMC library")
 set(nrf-section-vars-name "Nordic Section Variables library")
 set(nrf-serial-name "Nordic Serial port library")
 set(nrf-simple-timer-name "Nordic Simple timer library")
+set(nrf-spi-mngr-name "Nordic SPI manager module")
 set(nrf-strerror-name "Nordic error code to string converter")
 set(nrf-timer-name "Nordic Timer library")
 set(nrf-uart-name "Nordic UART library")
@@ -80,6 +82,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-fstorage
 	nrf-fstorage-nvmc
 	nrf-fstorage-sd
+	nrf-gfx
 	nrf-led-softblink
 	nrf-log
 	nrf-log-rtt
@@ -95,6 +98,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-section-vars
 	nrf-serial
 	nrf-simple-timer
+	nrf-spi-mngr
 	nrf-strerror
 	nrf-timer
 	nrf-uart
@@ -164,6 +168,9 @@ check_dependency(nrf-serial nrf-drv-uart)
 check_dependency(nrf-serial nrf-queue)
 check_dependency(nrf-serial nrf-timer)
 check_dependency(nrf-simple-timer nrf-drv-timer)
+check_dependency(nrf-spi-mngr nrf-drv-spi-master)
+check_dependency(nrf-spi-mngr nrf-queue)
+check_dependency(nrf-spi-mngr nrf-utils)
 check_dependency(nrf-timer nrf-utils)
 check_dependency(nrf-uart nrf-drv-uart)
 check_dependency(nrf-uart-fifo nrf-uart)

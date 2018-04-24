@@ -200,6 +200,14 @@ if (NRF5_LIBS MATCHES " nrf-fstorage-nvmc ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-gfx ")
+	print_lib_usage(nrf-gfx)
+	add_definitions(-DNRF_GFX_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/gfx/nrf_gfx.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-led-softblink ")
 	print_lib_usage(nrf-led-softblink)
 	add_definitions(-DLED_SOFTBLINK_ENABLED=1)
@@ -338,6 +346,14 @@ if (NRF5_LIBS MATCHES " nrf-simple-timer ")
 	add_definitions(-DSIMPLE_TIMER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/simple_timer/app_simple_timer.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-spi-mngr ")
+	print_lib_usage(nrf-spi-mngr)
+	add_definitions(-DNRF_SPI_MNGR_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/spi_mngr/nrf_spi_mngr.c
 	)
 endif()
 
