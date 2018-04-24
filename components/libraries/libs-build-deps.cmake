@@ -325,6 +325,14 @@ if (NRF5_LIBS MATCHES " nrf-section-vars ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-serial ")
+	print_lib_usage(nrf-serial)
+	add_definitions(-DNRF_SERIAL_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/serial/nrf_serial.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-strerror ")
 	print_lib_usage(nrf-strerror)
 	add_definitions(-DNRF_STRERROR_ENABLED=1)
