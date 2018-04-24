@@ -35,6 +35,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-nvmc ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-ppi ")
+	print_lib_usage(nrf-drv-power)
+	add_definitions(-DPPI_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/ppi/nrf_drv_ppi.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-power ")
 	print_lib_usage(nrf-drv-power)
 	add_definitions(-DPOWER_ENABLED=1)
@@ -60,6 +68,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-saadc ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-spi-master ")
+	print_lib_usage(nrf-drv-spi-master)
+	add_definitions(-DSPI_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/spi_master/nrf_drv_spi.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-systick ")
 	print_lib_usage(nrf-drv-systick)
 	add_definitions(-DSYSTICK_ENABLED=1)
@@ -68,11 +84,11 @@ if (NRF5_LIBS MATCHES " nrf-drv-systick ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-drv-spi-master ")
-	print_lib_usage(nrf-drv-spi-master)
-	add_definitions(-DSPI_ENABLED=1)
+if (NRF5_LIBS MATCHES " nrf-drv-timer ")
+	print_lib_usage(nrf-drv-timer)
+	add_definitions(-DTIMER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
-		${NRF5_SDK_ROOT}/components/drivers_nrf/spi_master/nrf_drv_spi.c
+		${NRF5_SDK_ROOT}/components/drivers_nrf/timer/nrf_drv_timer.c
 	)
 endif()
 
