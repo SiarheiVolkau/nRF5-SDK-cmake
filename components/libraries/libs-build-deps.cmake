@@ -333,6 +333,14 @@ if (NRF5_LIBS MATCHES " nrf-serial ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-simple-timer ")
+	print_lib_usage(nrf-simple-timer)
+	add_definitions(-DSIMPLE_TIMER_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/simple_timer/app_simple_timer.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-strerror ")
 	print_lib_usage(nrf-strerror)
 	add_definitions(-DNRF_STRERROR_ENABLED=1)

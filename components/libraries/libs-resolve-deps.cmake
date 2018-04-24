@@ -41,6 +41,7 @@ set(nrf-scheduler-name "Nordic Scheduler library")
 set(nrf-sdcard-name "Nordic SD/MMC library")
 set(nrf-section-vars-name "Nordic Section Variables library")
 set(nrf-serial-name "Nordic Serial port library")
+set(nrf-simple-timer-name "Nordic Simple timer library")
 set(nrf-strerror-name "Nordic error code to string converter")
 set(nrf-timer-name "Nordic Timer library")
 set(nrf-uart-name "Nordic UART library")
@@ -93,6 +94,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-sdcard
 	nrf-section-vars
 	nrf-serial
+	nrf-simple-timer
 	nrf-strerror
 	nrf-timer
 	nrf-uart
@@ -161,6 +163,7 @@ check_dependency(nrf-sdcard nrf-drv-spi-master)
 check_dependency(nrf-serial nrf-drv-uart)
 check_dependency(nrf-serial nrf-queue)
 check_dependency(nrf-serial nrf-timer)
+check_dependency(nrf-simple-timer nrf-drv-timer)
 check_dependency(nrf-timer nrf-utils)
 check_dependency(nrf-uart nrf-drv-uart)
 check_dependency(nrf-uart-fifo nrf-uart)
