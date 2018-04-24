@@ -14,6 +14,7 @@ set(nrf-drv-nvmc-name "Nordic Non-Volatile Memory Controller driver")
 set(nrf-drv-power-name "Nordic Power driver")
 set(nrf-drv-ppi-name "Nordic Programmable Peripheral Interconnect (PPI) driver")
 set(nrf-drv-pwm-name "Nordic PWM driver")
+set(nrf-drv-qdec-name "Nordic Quadrature Decoder (QDEC) driver")
 set(nrf-drv-rtc-name "Nordic RTC driver")
 set(nrf-drv-saadc-name "Nordic Successive Approximation ADC (SAADC) driver")
 set(nrf-drv-spi-master-name "Nordic SPI Master driver")
@@ -32,6 +33,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-drv-power
 	nrf-drv-ppi
 	nrf-drv-pwm
+	nrf-drv-qdec
 	nrf-drv-rtc
 	nrf-drv-saadc
 	nrf-drv-spi-master
@@ -49,6 +51,7 @@ check_dependency(nrf-drv-lpcomp nrf-drv-common)
 check_dependency(nrf-drv-power nrf-drv-common)
 check_dependency(nrf-drv-ppi nrf-utils)
 check_dependency(nrf-drv-pwm nrf-drv-common)
+check_dependency(nrf-drv-qdec nrf-drv-common)
 check_dependency(nrf-drv-rtc nrf-drv-common)
 check_dependency(nrf-drv-saadc nrf-drv-common)
 check_dependency(nrf-drv-spi-master nrf-drv-common)
