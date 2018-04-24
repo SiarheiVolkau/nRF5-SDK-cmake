@@ -75,6 +75,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-qdec ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-qspi ")
+	print_lib_usage(nrf-drv-qspi)
+	add_definitions(-DQSPI_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/qspi/nrf_drv_qspi.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-power ")
 	print_lib_usage(nrf-drv-power)
 	add_definitions(-DPOWER_ENABLED=1)

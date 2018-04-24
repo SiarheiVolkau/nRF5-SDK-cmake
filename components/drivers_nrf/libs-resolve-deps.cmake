@@ -15,6 +15,7 @@ set(nrf-drv-power-name "Nordic Power driver")
 set(nrf-drv-ppi-name "Nordic Programmable Peripheral Interconnect (PPI) driver")
 set(nrf-drv-pwm-name "Nordic PWM driver")
 set(nrf-drv-qdec-name "Nordic Quadrature Decoder (QDEC) driver")
+set(nrf-drv-qspi-name "Nordic Quad SPI (QSPI) driver")
 set(nrf-drv-rtc-name "Nordic RTC driver")
 set(nrf-drv-saadc-name "Nordic Successive Approximation ADC (SAADC) driver")
 set(nrf-drv-spi-master-name "Nordic SPI Master driver")
@@ -34,6 +35,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-drv-ppi
 	nrf-drv-pwm
 	nrf-drv-qdec
+	nrf-drv-qspi
 	nrf-drv-rtc
 	nrf-drv-saadc
 	nrf-drv-spi-master
@@ -52,6 +54,7 @@ check_dependency(nrf-drv-power nrf-drv-common)
 check_dependency(nrf-drv-ppi nrf-utils)
 check_dependency(nrf-drv-pwm nrf-drv-common)
 check_dependency(nrf-drv-qdec nrf-drv-common)
+check_dependency(nrf-drv-qspi nrf-drv-common)
 check_dependency(nrf-drv-rtc nrf-drv-common)
 check_dependency(nrf-drv-saadc nrf-drv-common)
 check_dependency(nrf-drv-spi-master nrf-drv-common)
@@ -59,3 +62,10 @@ check_dependency(nrf-drv-timer nrf-drv-common)
 check_dependency(nrf-drv-uart nrf-drv-common)
 check_dependency(nrf-drv-usbd nrf-drv-common)
 check_dependency(nrf-drv-usbd nrf-drv-systick)
+
+if (NRF5_LIBS MATCHES " nrf-drv-qspi " AND NOT NRF5_TARGET MATCHES "nRF52840")
+	message(FATAL_ERROR "${nrf-drv-qspi-name} not available on selected target (${NRF5_TARGET}).")
+endif()
+if (NRF5_LIBS MATCHES " nrf-drv-usbd " AND NOT NRF5_TARGET MATCHES "nRF52840")
+	message(FATAL_ERROR "${nrf-drv-usbd-name} not available on selected target (${NRF5_TARGET}).")
+endif()
