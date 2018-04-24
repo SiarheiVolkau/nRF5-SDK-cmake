@@ -9,6 +9,7 @@ set(nrf-drv-clock-name "Nordic Clock driver")
 set(nrf-drv-common-name "Nordic Common drivers")
 set(nrf-drv-gpiote-name "Nordic GPIO driver")
 set(nrf-drv-i2s-name "Nordic I2S driver")
+set(nrf-drv-lpcomp-name "Nordic Low Power Comparator (LPCOMP) driver")
 set(nrf-drv-nvmc-name "Nordic Non-Volatile Memory Controller driver")
 set(nrf-drv-power-name "Nordic Power driver")
 set(nrf-drv-ppi-name "Nordic Programmable Peripheral Interconnect (PPI) driver")
@@ -26,6 +27,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-drv-gpiote
 	nrf-drv-nvmc
 	nrf-drv-i2s
+	nrf-drv-lpcomp
 	nrf-drv-power
 	nrf-drv-ppi
 	nrf-drv-rtc
@@ -41,6 +43,7 @@ check_dependency(nrf-drv-clock nrf-drv-common)
 check_dependency(nrf-drv-clock nrf-utils)
 check_dependency(nrf-drv-gpiote nrf-drv-common)
 check_dependency(nrf-drv-i2s nrf-drv-common)
+check_dependency(nrf-drv-lpcomp nrf-drv-common)
 check_dependency(nrf-drv-power nrf-drv-common)
 check_dependency(nrf-drv-rtc nrf-drv-common)
 check_dependency(nrf-drv-saadc nrf-drv-common)
