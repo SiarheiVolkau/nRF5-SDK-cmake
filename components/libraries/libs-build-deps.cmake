@@ -200,6 +200,14 @@ if (NRF5_LIBS MATCHES " nrf-fstorage-nvmc ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-led-softblink ")
+	print_lib_usage(nrf-led-softblink)
+	add_definitions(-DLED_SOFTBLINK_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/led_softblink/led_softblink.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-log ")
 	print_lib_usage(nrf-log)
 	add_definitions(-DNRF_LOG_ENABLED=1)
@@ -236,6 +244,14 @@ if (NRF5_LIBS MATCHES " nrf-log-uart ")
 			${NRF5_SDK_ROOT}/components/libraries/cli/uart/nrf_cli_uart.c
 		)
 	endif()
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-low-power-pwm ")
+	print_lib_usage(nrf-low-power-pwm)
+	add_definitions(-DLOW_POWER_PWM_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/low_power_pwm/low_power_pwm.c
+	)
 endif()
 
 if (NRF5_LIBS MATCHES " nrf-memobj ")

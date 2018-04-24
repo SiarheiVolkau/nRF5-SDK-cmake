@@ -27,9 +27,11 @@ set(nrf-fifo-name "Nordic FIFO implementation")
 set(nrf-fstorage-name "Nordic Flash Storage library")
 set(nrf-fstorage-nvmc-name "Nordic Flash Storage NVMC backend")
 set(nrf-fstorage-sd-name "Nordic Flash Storage Softdevice backend")
+set(nrf-led-softblink-name "Nordic LED smooth blink library")
 set(nrf-log-name "Nordic Logging library")
 set(nrf-log-rtt-name "Nordic Logging to RTT backend")
 set(nrf-log-uart-name "Nordic Logging to UART backend")
+set(nrf-low-power-pwm-name "Nordic Low Power PWM impl. using timer and gpio library")
 set(nrf-memobj-name "Nordic Memory object module")
 set(nrf-queue-name "Nordic Queue module")
 set(nrf-pwr-mgmt-name "Nordic Power Management module")
@@ -75,9 +77,11 @@ list(APPEND NRF5_LIB_LIST
 	nrf-fstorage
 	nrf-fstorage-nvmc
 	nrf-fstorage-sd
+	nrf-led-softblink
 	nrf-log
 	nrf-log-rtt
 	nrf-log-uart
+	nrf-low-power-pwm
 	nrf-memobj
 	nrf-queue
 	nrf-pwr-mgmt
@@ -135,10 +139,12 @@ check_dependency(nrf-drv-csense nrf-drv-clock)
 check_dependency(nrf-fds nrf-fstorage)
 check_dependency(nrf-fstorage nrf-atomic-fifo)
 check_dependency(nrf-fstorage-nvmc nrf-drv-nvmc)
+check_dependency(nrf-led-softblink nrf-low-power-pwm)
 check_dependency(nrf-log-rtt nrf-log)
 check_dependency(nrf-log-rtt segger-rtt)
 check_dependency(nrf-log-uart nrf-log)
 check_dependency(nrf-log-uart nrf-drv-uart)
+check_dependency(nrf-low-power-pwm nrf-timer)
 check_dependency(nrf-memobj nrf-balloc)
 check_dependency(nrf-pwr-mgmt nrf-drv-power)
 check_dependency(nrf-sdcard nrf-drv-spi-master)
