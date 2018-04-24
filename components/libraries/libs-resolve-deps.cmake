@@ -34,6 +34,7 @@ set(nrf-log-uart-name "Nordic Logging to UART backend")
 set(nrf-low-power-pwm-name "Nordic Low Power PWM impl. using timer and gpio library")
 set(nrf-memobj-name "Nordic Memory object module")
 set(nrf-queue-name "Nordic Queue module")
+set(nrf-pwm-name "Nordic PWM library")
 set(nrf-pwr-mgmt-name "Nordic Power Management module")
 set(nrf-ringbuf-name "Nordic Ring buffer module")
 set(nrf-scheduler-name "Nordic Scheduler library")
@@ -84,6 +85,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-low-power-pwm
 	nrf-memobj
 	nrf-queue
+	nrf-pwm
 	nrf-pwr-mgmt
 	nrf-ringbuf
 	nrf-scheduler
@@ -147,6 +149,9 @@ check_dependency(nrf-log-uart nrf-drv-uart)
 check_dependency(nrf-low-power-pwm nrf-timer)
 check_dependency(nrf-low-power-pwm nrf-utils)
 check_dependency(nrf-memobj nrf-balloc)
+check_dependency(nrf-pwm nrf-drv-gpiote)
+check_dependency(nrf-pwm nrf-drv-ppi)
+check_dependency(nrf-pwm nrf-drv-timer)
 check_dependency(nrf-pwr-mgmt nrf-drv-power)
 check_dependency(nrf-sdcard nrf-drv-spi-master)
 check_dependency(nrf-timer nrf-utils)

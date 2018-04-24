@@ -269,6 +269,14 @@ if (NRF5_LIBS MATCHES " nrf-queue ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-pwm ")
+	print_lib_usage(nrf-pwm)
+	add_definitions(-DAPP_PWM_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/pwm/app_pwm.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-pwr-mgmt ")
 	print_lib_usage(nrf-pwr-mgmt)
 	add_definitions(-DNRF_PWR_MGMT_ENABLED=1)
