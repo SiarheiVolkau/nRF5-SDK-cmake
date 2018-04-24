@@ -148,6 +148,22 @@ if (NRF5_LIBS MATCHES " nrf-drv-timer ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-twi-master ")
+	print_lib_usage(nrf-drv-twi-master)
+	add_definitions(-DTWI_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/twi_master/nrf_drv_twi.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-drv-twi-slave ")
+	print_lib_usage(nrf-drv-twi-slave)
+	add_definitions(-DTWIS_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/twis_slave/nrf_drv_twis.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-uart ")
 	print_lib_usage(nrf-drv-uart)
 	add_definitions(-DUART_ENABLED=1)
