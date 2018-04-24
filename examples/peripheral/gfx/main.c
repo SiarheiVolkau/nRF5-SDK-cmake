@@ -75,12 +75,17 @@
 static const char * test_text = "nRF52 family";
 
 extern const nrf_gfx_font_desc_t orkney_24ptFontInfo;
-extern const nrf_lcd_t nrf_lcd_ili9341;
-extern const nrf_lcd_t nrf_lcd_st7735;
 
 static const nrf_gfx_font_desc_t * p_font = &orkney_24ptFontInfo;
+#if NRF_MODULE_ENABLED(ILI9341)
+extern const nrf_lcd_t nrf_lcd_ili9341;
 static const nrf_lcd_t * p_lcd = &nrf_lcd_ili9341;
-
+#elif NRF_MODULE_ENABLED(ST7735)
+extern const nrf_lcd_t nrf_lcd_st7735;
+static const nrf_lcd_t * p_lcd = &nrf_lcd_st7735;
+#else
+#error "Please indicate LCD panel"
+#endif
 static void gfx_initialization(void)
 {
     APP_ERROR_CHECK(nrf_gfx_init(p_lcd));
