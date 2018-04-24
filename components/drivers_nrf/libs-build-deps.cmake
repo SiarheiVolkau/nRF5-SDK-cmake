@@ -52,10 +52,18 @@ if (NRF5_LIBS MATCHES " nrf-drv-nvmc ")
 endif()
 
 if (NRF5_LIBS MATCHES " nrf-drv-ppi ")
-	print_lib_usage(nrf-drv-power)
+	print_lib_usage(nrf-drv-ppi)
 	add_definitions(-DPPI_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/drivers_nrf/ppi/nrf_drv_ppi.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-drv-pwm ")
+	print_lib_usage(nrf-drv-pwm)
+	add_definitions(-DPWM_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/pwm/nrf_drv_pwm.c
 	)
 endif()
 
