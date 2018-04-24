@@ -28,6 +28,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-gpiote ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-drv-i2s ")
+	print_lib_usage(nrf-drv-i2s)
+	add_definitions(-DI2S_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/drivers_nrf/i2s/nrf_drv_i2s.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-drv-nvmc ")
 	print_lib_usage(nrf-drv-nvmc)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
