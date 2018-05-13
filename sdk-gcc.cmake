@@ -117,7 +117,7 @@ set(STARTFILES "'${CRT0_OBJ_PATH}' '${CRTI_OBJ_PATH}' '${CRTN_OBJ_PATH}'")
 # define volatile compiler flags
 #
 set(CMAKE_C_FLAGS "${CPU_FLAGS} -std=c99 -ffunction-sections -fdata-sections -g3 -Wall")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -O0 -DDEBUG" CACHE STRING "Debug compiler flags" FORCE)
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -O0 -DDEBUG -DDEBUG_NRF" CACHE STRING "Debug compiler flags" FORCE)
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} -Os" CACHE STRING "Release compiler flags" FORCE)
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS} -Os")
 set(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS} -Os")

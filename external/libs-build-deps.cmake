@@ -24,6 +24,7 @@ endif()
 
 if (NRF5_LIBS MATCHES " freertos ")
 	print_lib_usage(freertos)
+	add_definitions(-DFREERTOS)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/external/freertos/source/croutine.c
 		${NRF5_SDK_ROOT}/external/freertos/source/event_groups.c
