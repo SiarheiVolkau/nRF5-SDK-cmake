@@ -23,18 +23,14 @@ if (NRF5_LIBS MATCHES " nrf-ble-advertising ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-ble-peripheral ")
-	print_lib_usage(nrf-ble-peripheral)
-	add_definitions(-DNRF_BLE_CONN_PARAMS_ENABLED=1)
-	add_definitions(-DNRF_SDH_BLE_PERIPHERAL_LINK_COUNT=1)
-	set(NRF5_SOURCES ${NRF5_SOURCES}
-		${NRF5_SDK_ROOT}/components/ble/common/ble_conn_params.c
-	)
-endif()
-
 if (NRF5_LIBS MATCHES " nrf-ble-central ")
 	print_lib_usage(nrf-ble-central)
 	add_definitions(-DNRF_SDH_BLE_CENTRAL_LINK_COUNT=1)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-ble-conn-params ")
+	print_lib_usage(nrf-ble-conn-params)
+	add_definitions(-DNRF_BLE_CONN_PARAMS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/ble/common/ble_conn_params.c
 	)
@@ -55,6 +51,29 @@ if (NRF5_LIBS MATCHES " nrf-ble-gatt ")
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/ble/nrf_ble_gatt/nrf_ble_gatt.c
 	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-ble-peer-manager ")
+	print_lib_usage(nrf-ble-peer-manager)
+	add_definitions(-DPEER_MANAGER_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/gatt_cache_manager.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/gatts_cache_manager.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/id_manager.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/peer_data_storage.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/peer_database.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/peer_id.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/peer_manager.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/pm_buffer.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/pm_mutex.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/security_dispatcher.c
+		${NRF5_SDK_ROOT}/components/ble/peer_manager/security_manager.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-ble-peripheral ")
+	print_lib_usage(nrf-ble-peripheral)
+	add_definitions(-DNRF_SDH_BLE_PERIPHERAL_LINK_COUNT=1)
 endif()
 
 include(${CMAKE_CURRENT_LIST_DIR}/ble_services/libs-build-deps.cmake)

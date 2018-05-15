@@ -333,6 +333,13 @@ if (NRF5_LIBS MATCHES " nrf-section-vars ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-sensorsim ")
+	print_lib_usage(nrf-sensorsim)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/sensorsim/sensorsim.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-serial ")
 	print_lib_usage(nrf-serial)
 	add_definitions(-DNRF_SERIAL_ENABLED=1)

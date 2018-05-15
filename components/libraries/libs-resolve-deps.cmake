@@ -41,6 +41,7 @@ set(nrf-ringbuf-name "Nordic Ring buffer module")
 set(nrf-scheduler-name "Nordic Scheduler library")
 set(nrf-sdcard-name "Nordic SD/MMC library")
 set(nrf-section-vars-name "Nordic Section Variables library")
+set(nrf-sensorsim-name "Nordic Sensor Simulation library")
 set(nrf-serial-name "Nordic Serial port library")
 set(nrf-simple-timer-name "Nordic Simple timer library")
 set(nrf-spi-mngr-name "Nordic SPI manager module")
@@ -96,6 +97,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-scheduler
 	nrf-sdcard
 	nrf-section-vars
+	nrf-sensorsim
 	nrf-serial
 	nrf-simple-timer
 	nrf-spi-mngr
