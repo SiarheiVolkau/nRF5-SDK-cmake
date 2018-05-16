@@ -45,10 +45,6 @@ add_definitions(-DPWM0_ENABLED=1)
 add_definitions(-DPWM1_ENABLED=1)
 add_definitions(-DPWM2_ENABLED=1)
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here

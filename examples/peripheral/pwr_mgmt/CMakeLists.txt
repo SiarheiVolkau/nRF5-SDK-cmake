@@ -43,10 +43,6 @@ set(NRF5_LIBS "nrf-log-uart nrf-log-rtt nrf-utils nrf-bsp nrf-drv-clock nrf-pwr-
 # custom memory layout linker script
 # set(LINKER_SCRIPT "ldscript.ld")
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here

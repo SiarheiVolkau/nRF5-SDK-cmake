@@ -46,10 +46,6 @@ add_definitions(-DQDEC_CONFIG_PIO_B=4)
 add_definitions(-DQDEC_CONFIG_PIO_LED=28)
 add_definitions(-DQDEC_CONFIG_LEDPRE=50)
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here

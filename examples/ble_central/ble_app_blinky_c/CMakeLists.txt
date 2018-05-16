@@ -44,10 +44,6 @@ add_definitions(-DNRF_SDH_BLE_VS_UUID_COUNT=10)
 # custom memory layout linker script
 # set(LINKER_SCRIPT "ldscript.ld")
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here

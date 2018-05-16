@@ -65,10 +65,6 @@ add_definitions(-DNRF_SPI_DRV_MISO_PULLUP_CFG=NRF_GPIO_PIN_PULLDOWN)
 # custom memory layout linker script
 # set(LINKER_SCRIPT "ldscript.ld")
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here

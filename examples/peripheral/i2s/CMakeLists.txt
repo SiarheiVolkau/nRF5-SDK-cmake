@@ -44,10 +44,6 @@ set(NRF5_LIBS "nrf-log-rtt nrf-log-uart nrf-utils nrf-drv-i2s")
 add_definitions(-DI2S_SDIN_PIN=26)
 add_definitions(-DI2S_SDOUT_PIN=27)
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here

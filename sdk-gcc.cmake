@@ -13,6 +13,7 @@ if (NRF5_TARGET MATCHES "nRF52")
 	if (NRF5_TARGET MATCHES "nRF52832" OR NRF5_TARGET MATCHES "nRF52840")
 		set(GCC_ARM_FLOAT_ABI "hard")
 		set(GCC_ARM_FPU_VARIANT "fpv4-sp-d16")
+		add_definitions(-DFLOAT_ABI_HARD)
 	elseif(NRF5_TARGET MATCHES "nRF52810")
 		set(GCC_ARM_FLOAT_ABI "soft")
 	else()
@@ -21,7 +22,9 @@ if (NRF5_TARGET MATCHES "nRF52")
 			"For now valid targets are: nRF52810 nRF52832 nRF52840."
 		)
 	endif()
+	add_definitions(-DNRF52)
 elseif(NRF5_TARGET MATCHES "nRF51")
+	add_definitions(-DNRF51)
 	message(FATAL_ERROR "nRF51 targets not supported yet.")
 else()
 	message(FATAL_ERROR
@@ -233,6 +236,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/libs-build-deps.cmake)
 # use specific linker script
 # default the script depends on softdevice used
 #
+set(LINKER_SEARCH_LOCATIONS "${LINKER_SEARCH_LOCATIONS} -L${NRF5_SDK_ROOT}/components/toolchain/gcc")
 if (NOT DEFINED LINKER_SCRIPT)
 	if (NRF5_SOFTDEVICE STREQUAL "s112")
 		set(NRF5_LDSCRIPT_SD "s112")
@@ -254,7 +258,6 @@ if (NOT DEFINED LINKER_SCRIPT)
 	endif()
 
 	if (NRF5_TARGET MATCHES "nRF52")
-		set(LINKER_SEARCH_LOCATIONS "${LINKER_SEARCH_LOCATIONS} -L${NRF5_SDK_ROOT}/components/toolchain/gcc")
 		if (NRF5_TARGET MATCHES "nRF52840")
 			set(LINKER_SCRIPT ${NRF5_SDK_ROOT}/components/toolchain/gcc/gcc_nrf52840_xxaa_${NRF5_LDSCRIPT_SD}.ld)
 		elseif (NRF5_TARGET MATCHES "nRF52832")
@@ -307,66 +310,14 @@ set(CMAKE_C_LINK_EXECUTABLE
 
 set(NRF5_SOURCES ${NRF5_SOURCES} CACHE INTERNAL "")
 set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES} CACHE INTERNAL "")
-#
-# flashing binaries to board
-#
-
-# flasher tool
-if (NOT DEFINED NRF5_NRFJPROG)
-	set(NRF5_NRFJPROG nrfjprog)
-endif()
-
-# nRF5 family
-if (NRF5_TARGET MATCHES "nRF51")
-	set(NRF5_TARGET_FAMILY "nrf51")
-else()
-	set(NRF5_TARGET_FAMILY "nrf52")
-endif()
-
-if (DEFINED NRF5_SOFTDEVICE)
-	if (NOT DEFINED NRF5_SOFTDEVICE_FILE)
-		if (NRF5_SOFTDEVICE MATCHES "s112")
-			set(NRF5_SOFTDEVICE_FILE "${NRF5_SDK_ROOT}/components/softdevice/s112/hex/s112_nrf52810_5.1.0_softdevice.hex")
-		elseif (NRF5_SOFTDEVICE MATCHES "s132")
-			set(NRF5_SOFTDEVICE_FILE "${NRF5_SDK_ROOT}/components/softdevice/s132/hex/s132_nrf52_5.0.0_softdevice.hex")
-		elseif (NRF5_SOFTDEVICE MATCHES "s140")
-			set(NRF5_SOFTDEVICE_FILE "${NRF5_SDK_ROOT}/components/softdevice/s140/hex/s140_nrf52840_5.0.0-2.alpha_softdevice.hex")
-		else()
-			message(FATAL_ERROR "Unknown/Unsupported SoftDevice to flash")
-		endif()
-	endif()
-	add_custom_target(flash_softdevice
-		COMMAND ${NRF5_NRFJPROG} -f ${NRF5_TARGET_FAMILY} --program ${NRF5_SOFTDEVICE_FILE} --sectorerase --verify ${NRF5_SOFTDEVICE_FILE}
-		COMMENT "Flashing SoftDevice (${NRF5_SOFTDEVICE}) ..."
-		DEPENDS build_hex #< prevents flashing if build fails
-	)
-else()
-add_custom_target(flash_softdevice
-	# do nothing
-	DEPENDS build_hex #< prevents flashing if build fails
-)
-endif()
 
 add_custom_command(OUTPUT ${CMAKE_PROJECT_NAME}.hex
 	COMMAND ${CMAKE_OBJCOPY} -O ihex ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex
-	DEPENDS ${CMAKE_PROJECT_NAME}
 	COMMENT "Making hex file ${CMAKE_PROJECT_NAME}.hex"
 )
 
-add_custom_target(build_hex ALL
-	DEPENDS ${CMAKE_PROJECT_NAME}.hex
+add_custom_target(${CMAKE_PROJECT_NAME}.hex ALL
+	DEPENDS ${CMAKE_PROJECT_NAME}.hex ${CMAKE_PROJECT_NAME}
 )
 
-if (FLASH_AFTER_BUILD)
-	add_custom_target(flash ALL
-		DEPENDS build_hex flash_softdevice
-		COMMAND ${NRF5_NRFJPROG} -f ${NRF5_TARGET_FAMILY} --program ${CMAKE_PROJECT_NAME}.hex --sectorerase --verify ${CMAKE_PROJECT_NAME}.hex
-		COMMENT "Flashing ${CMAKE_PROJECT_NAME} ..."
-	)
-else()
-	add_custom_target(flash
-		DEPENDS build_hex flash_softdevice
-		COMMAND ${NRF5_NRFJPROG} -f ${NRF5_TARGET_FAMILY} --program ${CMAKE_PROJECT_NAME}.hex --sectorerase --verify ${CMAKE_PROJECT_NAME}.hex
-		COMMENT "Flashing ${CMAKE_PROJECT_NAME} ..."
-	)
-endif()
+include(${CMAKE_CURRENT_LIST_DIR}/install.cmake)

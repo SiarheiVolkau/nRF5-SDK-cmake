@@ -48,10 +48,6 @@ set(FREERTOS_CONFIG_PATH "${PROJECT_SOURCE_DIR}/config")
 # RTC2 used for blinking in code, enable it
 add_definitions(-DRTC2_ENABLED=1)
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here

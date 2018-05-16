@@ -42,13 +42,12 @@ set(NRF5_SOFTDEVICE "s132")
 
 add_definitions(-DNRF_SDH_BLE_OBSERVER_PRIO_LEVELS=4)
 add_definitions(-DNRF_SDH_BLE_VS_UUID_COUNT=10)
+add_definitions(-DPM_FLASH_BUFFERS=2)
+add_definitions(-DNRF_SDH_BLE_SERVICE_CHANGED=1)
+add_definitions(-DSWI_DISABLE0)
 
 # custom memory layout linker script
 # set(LINKER_SCRIPT "ldscript.ld")
-
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
 
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 

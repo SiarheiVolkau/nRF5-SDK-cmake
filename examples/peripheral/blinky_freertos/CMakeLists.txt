@@ -45,10 +45,6 @@ set(NRF5_LIBS "freertos nrf-utils")
 # FreeRTOS config override
 set(FREERTOS_CONFIG_PATH "${PROJECT_SOURCE_DIR}/config")
 
-# uncomment for flashing binary after successful build
-# nrfjprog should be installed
-set(FLASH_AFTER_BUILD OFF)
-
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
 #place SDK default redefinitions here
