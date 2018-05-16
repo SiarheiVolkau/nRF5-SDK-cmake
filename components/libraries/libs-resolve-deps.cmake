@@ -28,6 +28,7 @@ set(nrf-fstorage-name "Nordic Flash Storage library")
 set(nrf-fstorage-nvmc-name "Nordic Flash Storage NVMC backend")
 set(nrf-fstorage-sd-name "Nordic Flash Storage Softdevice backend")
 set(nrf-gfx-name "Nordic Drawing graphics library")
+set(nrf-hardfault-name "Nordic Hard Fault handler")
 set(nrf-led-softblink-name "Nordic LED smooth blink library")
 set(nrf-log-name "Nordic Logging library")
 set(nrf-log-rtt-name "Nordic Logging to RTT backend")
@@ -84,6 +85,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-fstorage-nvmc
 	nrf-fstorage-sd
 	nrf-gfx
+	nrf-hardfault
 	nrf-led-softblink
 	nrf-log
 	nrf-log-rtt

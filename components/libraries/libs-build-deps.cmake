@@ -208,6 +208,23 @@ if (NRF5_LIBS MATCHES " nrf-gfx ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-hardfault ")
+	print_lib_usage(nrf-hardfault)
+	add_definitions(-DHARDFAULT_HANDLER_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/hardfault/hardfault_implementation.c
+	)
+	if (NRF5_TARGET MATCHES "nRF52")
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/libraries/hardfault/nrf52/handler/hardfault_handler_gcc.c
+		)
+	elseif(NRF5_TARGET MATCHES "nRF51")
+		set(NRF5_SOURCES ${NRF5_SOURCES}
+			${NRF5_SDK_ROOT}/components/libraries/hardfault/nrf51/handler/hardfault_handler_gcc.c
+		)
+	endif()
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-led-softblink ")
 	print_lib_usage(nrf-led-softblink)
 	add_definitions(-DLED_SOFTBLINK_ENABLED=1)
