@@ -140,6 +140,22 @@ if (NRF5_LIBS MATCHES " nrf-cli-uart ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-crc16 ")
+	print_lib_usage(nrf-crc16)
+	add_definitions(-DCRC16_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/crc16/crc16.c
+	)
+endif()
+
+if (NRF5_LIBS MATCHES " nrf-crc32 ")
+	print_lib_usage(nrf-crc32)
+	add_definitions(-DCRC32_ENABLED=1)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/crc32/crc32.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-csense ")
 	print_lib_usage(nrf-csense)
 	add_definitions(-DNRF_CSENSE_ENABLED=1)

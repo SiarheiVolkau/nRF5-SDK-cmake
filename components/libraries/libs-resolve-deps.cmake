@@ -20,6 +20,8 @@ set(nrf-cli-ble-uart-name "Nordic CLI UART over BLE backend")
 set(nrf-cli-cdc-acm-name "Nordic CLI CDC ACM (USB) backend")
 set(nrf-cli-rtt-name "Nordic CLI over Segger RTT backend")
 set(nrf-cli-uart-name "Nordic CLI over UART backend")
+set(nrf-crc16-name "Nordic CRC-16 calculation library")
+set(nrf-crc32-name "Nordic CRC-32 calculation library")
 set(nrf-csense-name "Nordic Capacitive sensor library")
 set(nrf-drv-csense-name "Nordic Capacitive sensor low-level library")
 set(nrf-fds-name "Nordic Flash Data Storage library")
@@ -77,6 +79,8 @@ list(APPEND NRF5_LIB_LIST
 	nrf-cli-cdc-acm
 	nrf-cli-rtt
 	nrf-cli-uart
+	nrf-crc16
+	nrf-crc32
 	nrf-csense
 	nrf-drv-csense
 	nrf-fds
@@ -151,6 +155,7 @@ check_dependency(nrf-csense nrf-drv-csense)
 check_dependency(nrf-drv-csense nrf-drv-saadc)
 check_dependency(nrf-drv-csense nrf-drv-clock)
 check_dependency(nrf-fds nrf-fstorage)
+check_dependency(nrf-fds nrf-crc16)
 check_dependency(nrf-fstorage nrf-atomic-fifo)
 check_dependency(nrf-fstorage-nvmc nrf-drv-nvmc)
 check_dependency(nrf-led-softblink nrf-low-power-pwm)
