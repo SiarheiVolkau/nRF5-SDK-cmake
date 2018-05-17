@@ -1,0 +1,82 @@
+#******************************************************************************
+#
+# Copyright (c) 2018 Siarhei Volkau
+# SPDX-License-Identifier: MIT
+#
+#******************************************************************************
+
+#
+# use specific linker script
+# default the script depends on softdevice used
+#
+set(LINKER_SEARCH_LOCATIONS "${LINKER_SEARCH_LOCATIONS} -L${NRF5_SDK_ROOT}/components/toolchain/gcc")
+if (NOT DEFINED LINKER_SCRIPT)
+
+	if (NRF5_TARGET MATCHES "nRF52")
+		set(LINKER_SCRIPT ${NRF5_SDK_ROOT}/components/toolchain/gcc/gcc_nrf52.ld)
+	else()
+		message(FATAL_ERROR "Unknown/Unsupported target")
+	endif()
+endif ()
+
+#
+# resolving chip memory regions
+#
+
+# default value when no softdevice used
+set (NRF5_LINKER_FLASH_START 0x00000000)
+set (NRF5_LINKER_RAM_START 0x20000000)
+
+if (NRF5_TARGET MATCHES "nRF52840")
+	set(NRF5_LINKER_FLASH_SIZE 0x00100000) # 1M
+	set(NRF5_LINKER_RAM_SIZE 0x00040000) # 256k
+elseif (NRF5_TARGET MATCHES "nRF52832")
+	if (NRF5_TARGET MATCHES "XXAB") #  64k
+		set(NRF5_LINKER_FLASH_SIZE 0x00040000) # 256k
+		set(NRF5_LINKER_RAM_SIZE 0x00008000) # 32k
+	else() # XXAA
+		set(NRF5_LINKER_FLASH_SIZE 0x00080000) # 512k
+		set(NRF5_LINKER_RAM_SIZE 0x00010000) # 64k
+	endif()
+elseif (NRF5_TARGET MATCHES "nRF52810")
+	set(NRF5_LINKER_FLASH_SIZE 0x00030000) # 192k
+	set(NRF5_LINKER_RAM_SIZE 0x00006000) # 24k
+else()
+	message(FATAL_ERROR "Unknown/Unsupported target")
+endif()
+
+if (DEFINED NRF5_SOFTDEVICE)
+	if (NOT DEFINED NRF5_SOFTDEVICE_FLASH_RESERVE)
+		if (NRF5_SOFTDEVICE MATCHES "s132")
+			set(NRF5_SOFTDEVICE_FLASH_RESERVE 0x00023000)
+		elseif (NRF5_SOFTDEVICE MATCHES "s112")
+			set(NRF5_SOFTDEVICE_FLASH_RESERVE 0x00018000)
+		elseif (NRF5_SOFTDEVICE MATCHES "s212")
+			set(NRF5_SOFTDEVICE_FLASH_RESERVE 0x00012000)
+		elseif (NRF5_SOFTDEVICE MATCHES "s332")
+			set(NRF5_SOFTDEVICE_FLASH_RESERVE 0x0002d000)
+		else()
+			message(FATAL_ERROR "Unknown/Unsupported softdevice. Define NRF5_SOFTDEVICE_FLASH_RESERVE to avoid this error")
+		endif()
+	endif()
+	set(NRF5_LINKER_FLASH_START "${NRF5_LINKER_FLASH_START}+${NRF5_SOFTDEVICE_FLASH_RESERVE}")
+	set(NRF5_LINKER_FLASH_SIZE "${NRF5_LINKER_FLASH_SIZE}-${NRF5_SOFTDEVICE_FLASH_RESERVE}")
+
+	if (NOT DEFINED NRF5_SOFTDEVICE_RAM_RESERVE)
+		message(FATAL_ERROR "NRF5_SOFTDEVICE_RAM_RESERVE not defined")
+	endif()
+	set(NRF5_LINKER_RAM_START "${NRF5_LINKER_RAM_START}+${NRF5_SOFTDEVICE_RAM_RESERVE}")
+	set(NRF5_LINKER_RAM_SIZE "${NRF5_LINKER_RAM_SIZE}-${NRF5_SOFTDEVICE_RAM_RESERVE}")
+endif()
+
+
+set(LINKER_MEMORY_DEFINES "--defsym NRF5_FLASH_START=${NRF5_LINKER_FLASH_START}")
+set(LINKER_MEMORY_DEFINES "${LINKER_MEMORY_DEFINES} --defsym NRF5_FLASH_SIZE=${NRF5_LINKER_FLASH_SIZE}")
+set(LINKER_MEMORY_DEFINES "${LINKER_MEMORY_DEFINES} --defsym NRF5_RAM_START=${NRF5_LINKER_RAM_START}")
+set(LINKER_MEMORY_DEFINES "${LINKER_MEMORY_DEFINES} --defsym NRF5_RAM_SIZE=${NRF5_LINKER_RAM_SIZE}")
+
+#
+# linker commandline
+#
+set(CMAKE_C_LINK_EXECUTABLE
+        "${CMAKE_C_LINKER} ${LINKER_SEARCH_LOCATIONS} -T${LINKER_SCRIPT} ${LINKER_MEMORY_DEFINES} -Map <TARGET>.map --gc-sections -o <TARGET> <OBJECTS> ${STARTFILES} <LINK_LIBRARIES> ${STDLIBS}")

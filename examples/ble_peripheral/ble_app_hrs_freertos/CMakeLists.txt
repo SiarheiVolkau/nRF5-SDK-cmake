@@ -39,6 +39,7 @@ set(NRF5_LIBS "${NRF5_LIBS} nrf-log-rtt nrf-log-uart")
 
 # variants are s112 s132 s140 s212 s332
 set(NRF5_SOFTDEVICE "s132")
+set(NRF5_SOFTDEVICE_RAM_RESERVE 0x2180 CACHE STRING "Softdevice RAM reserve" FORCE)
 
 add_definitions(-DNRF_SDH_BLE_OBSERVER_PRIO_LEVELS=4)
 add_definitions(-DNRF_SDH_BLE_VS_UUID_COUNT=10)

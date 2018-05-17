@@ -233,46 +233,6 @@ endif()
 include(${CMAKE_CURRENT_LIST_DIR}/libs-build-deps.cmake)
 
 #
-# use specific linker script
-# default the script depends on softdevice used
-#
-set(LINKER_SEARCH_LOCATIONS "${LINKER_SEARCH_LOCATIONS} -L${NRF5_SDK_ROOT}/components/toolchain/gcc")
-if (NOT DEFINED LINKER_SCRIPT)
-	if (NRF5_SOFTDEVICE STREQUAL "s112")
-		set(NRF5_LDSCRIPT_SD "s112")
-		add_definitions(-DS112)
-	elseif (NRF5_SOFTDEVICE STREQUAL "s132")
-		set(NRF5_LDSCRIPT_SD "s132")
-		add_definitions(-DS132)
-	elseif (NRF5_SOFTDEVICE STREQUAL "s140")
-		set(NRF5_LDSCRIPT_SD "s140")
-		add_definitions(-DS140)
-	elseif (NRF5_SOFTDEVICE STREQUAL "s212")
-		set(NRF5_LDSCRIPT_SD "s212")
-		add_definitions(-DS212)
-	elseif (NRF5_SOFTDEVICE STREQUAL "s332")
-		set(NRF5_LDSCRIPT_SD "s332")
-		add_definitions(-DS332)
-	elseif (NOT DEFINED NRF5_SOFTDEVICE)
-		set(NRF5_LDSCRIPT_SD "nosd")
-	endif()
-
-	if (NRF5_TARGET MATCHES "nRF52")
-		if (NRF5_TARGET MATCHES "nRF52840")
-			set(LINKER_SCRIPT ${NRF5_SDK_ROOT}/components/toolchain/gcc/gcc_nrf52840_xxaa_${NRF5_LDSCRIPT_SD}.ld)
-		elseif (NRF5_TARGET MATCHES "nRF52832")
-			if (NRF5_TARGET MATCHES "XXAB")
-				set(LINKER_SCRIPT ${NRF5_SDK_ROOT}/components/toolchain/gcc/gcc_nrf52832_xxab_${NRF5_LDSCRIPT_SD}.ld)
-			else()
-				set(LINKER_SCRIPT ${NRF5_SDK_ROOT}/components/toolchain/gcc/gcc_nrf52832_xxaa_${NRF5_LDSCRIPT_SD}.ld)
-			endif()
-		elseif (NRF5_TARGET MATCHES "nRF52810")
-			set(LINKER_SCRIPT ${NRF5_SDK_ROOT}/components/toolchain/gcc/gcc_nrf52810_xxaa_${NRF5_LDSCRIPT_SD}.ld)
-		endif()
-	endif()
-endif ()
-
-#
 # adding specific initialization code
 #
 if (NRF5_TARGET MATCHES "nRF52840")
@@ -302,11 +262,7 @@ elseif (NRF5_TARGET MATCHES "nRF52810")
 	add_definitions(-DNRF52810_XXAA)
 endif()
 
-#
-# linker commandline
-#
-set(CMAKE_C_LINK_EXECUTABLE
-        "${CMAKE_C_LINKER} ${LINKER_SEARCH_LOCATIONS} -T${LINKER_SCRIPT} -Map <TARGET>.map --gc-sections -o <TARGET> <OBJECTS> ${STARTFILES} <LINK_LIBRARIES> ${STDLIBS}")
+include(${CMAKE_CURRENT_LIST_DIR}/link.cmake)
 
 set(NRF5_SOURCES ${NRF5_SOURCES} CACHE INTERNAL "")
 set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES} CACHE INTERNAL "")
