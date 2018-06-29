@@ -24,6 +24,7 @@ set(nrf-crc16-name "Nordic CRC-16 calculation library")
 set(nrf-crc32-name "Nordic CRC-32 calculation library")
 set(nrf-csense-name "Nordic Capacitive sensor library")
 set(nrf-drv-csense-name "Nordic Capacitive sensor low-level library")
+set(nrf-ecc-name "Nordic Elliptic Curve Cryptography interface")
 set(nrf-fds-name "Nordic Flash Data Storage library")
 set(nrf-fifo-name "Nordic FIFO implementation")
 set(nrf-fstorage-name "Nordic Flash Storage library")
@@ -83,6 +84,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-crc32
 	nrf-csense
 	nrf-drv-csense
+	nrf-ecc
 	nrf-fds
 	nrf-fifo
 	nrf-fstorage
@@ -154,6 +156,7 @@ check_dependency(nrf-cli-uart nrf-timer)
 check_dependency(nrf-csense nrf-drv-csense)
 check_dependency(nrf-drv-csense nrf-drv-saadc)
 check_dependency(nrf-drv-csense nrf-drv-clock)
+check_dependency(nrf-ecc micro-ecc)
 check_dependency(nrf-fds nrf-fstorage)
 check_dependency(nrf-fds nrf-crc16)
 check_dependency(nrf-fstorage nrf-atomic-fifo)

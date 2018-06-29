@@ -37,6 +37,8 @@ include_directories(
 	${CMAKE_CURRENT_LIST_DIR}/segger_rtt
 	${CMAKE_CURRENT_LIST_DIR}/thedotfactory_fonts
 	${CMAKE_CURRENT_LIST_DIR}/tiny-AES128
+
+	${CMAKE_CURRENT_LIST_DIR}/micro-ecc/micro-ecc
 )
 
 if (NOT DEFINED FREERTOS_CONFIG_PATH)

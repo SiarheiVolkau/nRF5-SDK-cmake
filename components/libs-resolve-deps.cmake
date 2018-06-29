@@ -14,7 +14,7 @@ list(APPEND dirs_list
 #	experimental_802_15_4
 #	iot
 	libraries
-#	nfc
+	nfc
 #	proprietary_rf
 #	serialization
 )

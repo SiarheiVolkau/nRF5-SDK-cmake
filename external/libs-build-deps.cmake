@@ -55,3 +55,28 @@ if (NRF5_LIBS MATCHES " segger-rtt ")
 		${NRF5_SDK_ROOT}/external/segger_rtt/SEGGER_RTT.c
 	)
 endif()
+
+if (NRF5_LIBS MATCHES " micro-ecc ")
+	print_lib_usage(micro-ecc)
+
+	if (NOT EXISTS ${NRF5_SDK_ROOT}/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a)
+		message(STATUS "micro ecc not built yet. Executing external clone & build script...")
+		execute_process(
+			COMMAND sh ${NRF5_SDK_ROOT}/external/micro-ecc/build_all.sh
+			WORKING_DIRECTORY ${NRF5_SDK_ROOT}/external/micro-ecc/
+		)
+	endif()
+	if (NRF5_TARGET MATCHES "nRF52840" OR NRF5_TARGET MATCHES "nRF52832")
+		set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES}
+			${NRF5_SDK_ROOT}/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a
+		)
+	elseif (NRF5_TARGET MATCHES "nRF52810")
+		set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES}
+			${NRF5_SDK_ROOT}/external/micro-ecc/nrf52nf_armgcc/armgcc/micro_ecc_lib_nrf52.a
+		)
+	elseif (NRF5_TARGET MATCHES "nRF51")
+		set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES}
+			${NRF5_SDK_ROOT}/external/micro-ecc/nrf51_armgcc/armgcc/micro_ecc_lib_nrf51.a
+		)
+	endif()
+endif()

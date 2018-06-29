@@ -172,6 +172,13 @@ if (NRF5_LIBS MATCHES " nrf-drv-csense ")
 	)
 endif()
 
+if (NRF5_LIBS MATCHES " nrf-ecc ")
+	print_lib_usage(nrf-ecc)
+	set(NRF5_SOURCES ${NRF5_SOURCES}
+		${NRF5_SDK_ROOT}/components/libraries/ecc/ecc.c
+	)
+endif()
+
 if (NRF5_LIBS MATCHES " nrf-fds ")
 	print_lib_usage(nrf-fds)
 	add_definitions(-DFDS_ENABLED=1)

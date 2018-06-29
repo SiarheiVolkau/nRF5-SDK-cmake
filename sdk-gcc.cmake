@@ -43,11 +43,6 @@ endif ()
 get_filename_component(NRF5_SDK_ROOT "${NRF5_SDK_ROOT}" ABSOLUTE)
 
 #
-# add sdk directories to search include paths
-#
-include(${CMAKE_CURRENT_LIST_DIR}/add-include-dirs.cmake)
-
-#
 # set compiler flags depending on target
 #
 if (DEFINED GCC_ARM_FPU_VARIANT)
@@ -169,6 +164,11 @@ endif()
 include(${CMAKE_CURRENT_LIST_DIR}/libs-resolve-deps.cmake)
 
 #
+# add sdk directories to search include paths
+#
+include(${CMAKE_CURRENT_LIST_DIR}/add-include-dirs.cmake)
+
+#
 # check correctness of selected target and softdevice
 #
 if (DEFINED NRF5_SOFTDEVICE)
@@ -263,9 +263,6 @@ elseif (NRF5_TARGET MATCHES "nRF52810")
 endif()
 
 include(${CMAKE_CURRENT_LIST_DIR}/link.cmake)
-
-set(NRF5_SOURCES ${NRF5_SOURCES} CACHE INTERNAL "")
-set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES} CACHE INTERNAL "")
 
 add_custom_command(OUTPUT ${CMAKE_PROJECT_NAME}.hexfile
 	COMMAND ${CMAKE_OBJCOPY} -O ihex ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex

@@ -32,6 +32,7 @@ include_directories(
 	${CMAKE_CURRENT_LIST_DIR}/crypto/backend/micro_ecc
 	${CMAKE_CURRENT_LIST_DIR}/crypto/backend/nrf_crypto_sw
 
+	${CMAKE_CURRENT_LIST_DIR}/ecc
 	${CMAKE_CURRENT_LIST_DIR}/experimental_log/src
 
 	${CMAKE_CURRENT_LIST_DIR}/usbd/config
