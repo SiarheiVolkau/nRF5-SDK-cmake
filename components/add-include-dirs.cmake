@@ -11,7 +11,7 @@ list(APPEND dirs_list
 	ble
 	drivers_ext
 	drivers_nrf
-	experimental_802_15_4
+#	experimental_802_15_4
 	iot
 	libraries
 	nfc
