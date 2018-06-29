@@ -6,7 +6,10 @@
 #******************************************************************************
 
 set(nrf-blesvc-bas-name "Nordic BLE Battery Service")
+set(nrf-blesvc-battery-name "(alias to nrf-blesvc-bas)")
 set(nrf-blesvc-dis-name "Nordic BLE Device Information Service")
+set(nrf-blesvc-device-info-name "(alias to nrf-blesvc-dis)")
+set(nrf-blesvc-heart-rate-name "(alias to nrf-blesvc-hrs)")
 set(nrf-blesvc-hrs-name "Nordic BLE Heart Rate Service")
 set(nrf-blesvc-lbs-name "Nordic BLE LED Button Service")
 set(nrf-blesvc-lbs-client-name "Nordic BLE LED Button Service Client")

@@ -262,6 +262,7 @@ elseif (NRF5_TARGET MATCHES "nRF52810")
 	add_definitions(-DNRF52810_XXAA)
 endif()
 
+include(${CMAKE_CURRENT_LIST_DIR}/list-modules.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/link.cmake)
 
 add_custom_command(OUTPUT ${CMAKE_PROJECT_NAME}.hexfile
