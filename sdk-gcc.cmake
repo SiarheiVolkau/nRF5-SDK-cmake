@@ -161,6 +161,11 @@ else()
 		"PCA10036, PCA10040, PCA10056, PCA20020, WT51822, ARDUINO_PRIMO, N5DK1 and D52DK1.")
 endif()
 
+include(${CMAKE_CURRENT_LIST_DIR}/functions.cmake)
+
+#
+# resolve dependencies
+#
 include(${CMAKE_CURRENT_LIST_DIR}/libs-resolve-deps.cmake)
 
 #
