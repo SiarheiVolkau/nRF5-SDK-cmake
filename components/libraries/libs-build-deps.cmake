@@ -5,14 +5,14 @@
 #
 #******************************************************************************
 
-if (NRF5_LIBS MATCHES " nrf-atomic-fifo ")
+if (nrf-atomic-fifo IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-atomic-fifo)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/atomic_fifo/nrf_atfifo.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-balloc ")
+if (nrf-balloc IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-balloc)
 	add_definitions(-DNRF_BALLOC_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -20,7 +20,7 @@ if (NRF5_LIBS MATCHES " nrf-balloc ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-bsp ")
+if (nrf-bsp IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-bsp)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/bsp/bsp.c
@@ -28,7 +28,7 @@ if (NRF5_LIBS MATCHES " nrf-bsp ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-bsp-simple " AND NOT(NRF5_LIBS MATCHES " nrf-bsp "))
+if (nrf-bsp-simple IN_LIST NRF5_MODULES AND NOT(nrf-bsp IN_LIST NRF5_MODULES))
 	print_lib_usage(nrf-bsp-simple)
 	add_definitions(-DBSP_SIMPLE)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -36,7 +36,7 @@ if (NRF5_LIBS MATCHES " nrf-bsp-simple " AND NOT(NRF5_LIBS MATCHES " nrf-bsp "))
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-bsp-btn ")
+if (nrf-bsp-btn IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-bsp-btn)
 	if (NOT DEFINED NRF5_SOFTDEVICE)
 		message(WARNING "nrf-bsp-btn library requires enabled Softdevice -- skipped")
@@ -48,7 +48,7 @@ if (NRF5_LIBS MATCHES " nrf-bsp-btn ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-button ")
+if (nrf-button IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-button)
 	add_definitions(-DBUTTON_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -56,16 +56,18 @@ if (NRF5_LIBS MATCHES " nrf-button ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-block-dev-empty ")
+if (nrf-block-dev-empty IN_LIST NRF5_MODULES)
+	print_lib_usage(nrf-block-dev-empty)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/block_dev/empty/nrf_block_dev_empty.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-block-dev-qspi ")
+if (nrf-block-dev-qspi IN_LIST NRF5_MODULES)
 	if (NOT(NRF5_TARGET MATCHES "nRF52840"))
 		message(WARNING "QSPI library applicable only to nRF52840 -- skipped")
 	else()
+		print_lib_usage(nrf-block-dev-qspi)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/block_dev/qspi/nrf_block_dev_qspi.c
 			${NRF5_SDK_ROOT}/components/libraries/block_dev/qspi/nrf_serial_flash_params.c
@@ -73,19 +75,21 @@ if (NRF5_LIBS MATCHES " nrf-block-dev-qspi ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-block-dev-ram ")
+if (nrf-block-dev-ram IN_LIST NRF5_MODULES)
+	print_lib_usage(nrf-block-dev-ram)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/block_dev/ram/nrf_block_dev_ram.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-block-dev-sdc ")
+if (nrf-block-dev-sdc IN_LIST NRF5_MODULES)
+	print_lib_usage(nrf-block-dev-sdc)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/block_dev/sdc/nrf_block_dev_sdc.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-cli ")
+if (nrf-cli IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-cli)
 	add_definitions(-DNRF_CLI_ENABLED=1)
 	add_definitions(-DNRF_CLI_ECHO_STATUS=1)
@@ -96,12 +100,12 @@ if (NRF5_LIBS MATCHES " nrf-cli ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-cli-ble-uart ")
-	print_lib_usage(nrf-cli-ble-uart)
-	# TODO check softdevice provides BLE
+if (nrf-cli-ble-uart IN_LIST NRF5_MODULES)
+	# TODO check softdevice provides BLE functionality
 	if (NOT DEFINED NRF5_SOFTDEVICE)
 		message(WARNING "nrf-cli-ble-uart backend requires enabled Softdevice -- skipped")
 	else()
+		print_lib_usage(nrf-cli-ble-uart)
 		add_definitions(-DNRF_CLI_BLE_UART_ENABLED=1)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/cli/ble_uart/nrf_cli_ble_uart.c
@@ -109,11 +113,11 @@ if (NRF5_LIBS MATCHES " nrf-cli-ble-uart ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-cli-cdc-acm ")
-	print_lib_usage(nrf-cli-cdc-acm)
+if (nrf-cli-cdc-acm IN_LIST NRF5_MODULES)
 	if (NOT(NRF5_TARGET MATCHES "nRF52840"))
 		message(WARNING "USB library applicable only to nRF52840 -- skipped")
 	else()
+		print_lib_usage(nrf-cli-cdc-acm)
 		add_definitions(-DNRF_CLI_CDC_ACM_ENABLED=1)
 		add_definitions(-DNRF_CLI_CDC_ACM_COMM_EPIN=NRF_DRV_USBD_EPIN2)
 		add_definitions(-DNRF_CLI_CDC_ACM_DATA_EPIN=NRF_DRV_USBD_EPIN1)
@@ -124,7 +128,7 @@ if (NRF5_LIBS MATCHES " nrf-cli-cdc-acm ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-cli-rtt ")
+if (nrf-cli-rtt IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-cli-rtt)
 	add_definitions(-DNRF_CLI_RTT_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -132,7 +136,7 @@ if (NRF5_LIBS MATCHES " nrf-cli-rtt ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-cli-uart ")
+if (nrf-cli-uart IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-cli-uart)
 	add_definitions(-DNRF_CLI_UART_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -140,7 +144,7 @@ if (NRF5_LIBS MATCHES " nrf-cli-uart ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-crc16 ")
+if (nrf-crc16 IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-crc16)
 	add_definitions(-DCRC16_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -148,7 +152,7 @@ if (NRF5_LIBS MATCHES " nrf-crc16 ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-crc32 ")
+if (nrf-crc32 IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-crc32)
 	add_definitions(-DCRC32_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -156,7 +160,7 @@ if (NRF5_LIBS MATCHES " nrf-crc32 ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-csense ")
+if (nrf-csense IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-csense)
 	add_definitions(-DNRF_CSENSE_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -164,7 +168,7 @@ if (NRF5_LIBS MATCHES " nrf-csense ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-drv-csense ")
+if (nrf-drv-csense IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-drv-csense)
 	add_definitions(-DNRF_DRV_CSENSE_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -172,14 +176,14 @@ if (NRF5_LIBS MATCHES " nrf-drv-csense ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-ecc ")
+if (nrf-ecc IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-ecc)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/ecc/ecc.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-fds ")
+if (nrf-fds IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-fds)
 	add_definitions(-DFDS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -187,7 +191,7 @@ if (NRF5_LIBS MATCHES " nrf-fds ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-fifo ")
+if (nrf-fifo IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-fifo)
 	add_definitions(-DAPP_FIFO_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -195,7 +199,7 @@ if (NRF5_LIBS MATCHES " nrf-fifo ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-fstorage ")
+if (nrf-fstorage IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-fstorage)
 	add_definitions(-DNRF_FSTORAGE_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -203,7 +207,7 @@ if (NRF5_LIBS MATCHES " nrf-fstorage ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-fstorage-sd ")
+if (nrf-fstorage-sd IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-fstorage-sd)
 	add_definitions(-DFDS_BACKEND=NRF_FSTORAGE_SD)
 	if (NOT DEFINED NRF5_SOFTDEVICE)
@@ -215,7 +219,7 @@ if (NRF5_LIBS MATCHES " nrf-fstorage-sd ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-fstorage-nvmc ")
+if (nrf-fstorage-nvmc IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-fstorage-nvmc)
 	add_definitions(-DFDS_BACKEND=NRF_FSTORAGE_NVMC)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -223,7 +227,7 @@ if (NRF5_LIBS MATCHES " nrf-fstorage-nvmc ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-gfx ")
+if (nrf-gfx IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-gfx)
 	add_definitions(-DNRF_GFX_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -231,7 +235,7 @@ if (NRF5_LIBS MATCHES " nrf-gfx ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-hardfault ")
+if (nrf-hardfault IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-hardfault)
 	add_definitions(-DHARDFAULT_HANDLER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -248,7 +252,7 @@ if (NRF5_LIBS MATCHES " nrf-hardfault ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-led-softblink ")
+if (nrf-led-softblink IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-led-softblink)
 	add_definitions(-DLED_SOFTBLINK_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -256,7 +260,7 @@ if (NRF5_LIBS MATCHES " nrf-led-softblink ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-log ")
+if (nrf-log IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-log)
 	add_definitions(-DNRF_LOG_ENABLED=1)
 	add_definitions(-DNRF_LOG_USES_COLORS=1)
@@ -273,7 +277,7 @@ if (NRF5_LIBS MATCHES " nrf-log ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-log-rtt ")
+if (nrf-log-rtt IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-log-rtt)
 	add_definitions(-DNRF_LOG_BACKEND_RTT_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -281,20 +285,20 @@ if (NRF5_LIBS MATCHES " nrf-log-rtt ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-log-uart ")
+if (nrf-log-uart IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-log-uart)
 	add_definitions(-DNRF_LOG_BACKEND_UART_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/experimental_log/src/nrf_log_backend_uart.c
 	)
-	if (NOT NRF5_LIBS MATCHES " nrf-cli-uart ")
+	if (NOT (nrf-cli-uart IN_LIST NRF5_MODULES))
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/cli/uart/nrf_cli_uart.c
 		)
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-low-power-pwm ")
+if (nrf-low-power-pwm IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-low-power-pwm)
 	add_definitions(-DLOW_POWER_PWM_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -302,14 +306,14 @@ if (NRF5_LIBS MATCHES " nrf-low-power-pwm ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-memobj ")
+if (nrf-memobj IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-memobj)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/experimental_memobj/nrf_memobj.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-queue ")
+if (nrf-queue IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-queue)
 	add_definitions(-DNRF_QUEUE_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -317,7 +321,7 @@ if (NRF5_LIBS MATCHES " nrf-queue ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-pwm ")
+if (nrf-pwm IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-pwm)
 	add_definitions(-DAPP_PWM_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -325,14 +329,14 @@ if (NRF5_LIBS MATCHES " nrf-pwm ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-pwr-mgmt ")
+if (nrf-pwr-mgmt IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-pwr-mgmt)
 	add_definitions(-DNRF_PWR_MGMT_ENABLED=1)
 	add_definitions(-DAPP_SHUTDOWN_HANDLER_PRIORITY=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c
 	)
-	if (NRF5_LIBS MATCHES " nrf-scheduler ")
+	if (nrf-scheduler IN_LIST NRF5_MODULES)
 		add_definitions(-DNRF_PWR_MGMT_CONFIG_USE_SCHEDULER=1)
 	endif()
 	if (NRF5_TARGET MATCHES "nRF52810")
@@ -342,14 +346,14 @@ if (NRF5_LIBS MATCHES " nrf-pwr-mgmt ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-ringbuf ")
+if (nrf-ringbuf IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-ringbuf)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/experimental_ringbuf/nrf_ringbuf.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-scheduler ")
+if (nrf-scheduler IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-scheduler)
 	add_definitions(-DAPP_SCHEDULER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -357,7 +361,7 @@ if (NRF5_LIBS MATCHES " nrf-scheduler ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-sdcard ")
+if (nrf-sdcard IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-sdcard)
 	add_definitions(-DAPP_SDCARD_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -365,7 +369,7 @@ if (NRF5_LIBS MATCHES " nrf-sdcard ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-section-vars ")
+if (nrf-section-vars IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-section-vars)
 	add_definitions(-DNRF_SECTION_ITER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -373,14 +377,14 @@ if (NRF5_LIBS MATCHES " nrf-section-vars ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-sensorsim ")
+if (nrf-sensorsim IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-sensorsim)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/sensorsim/sensorsim.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-serial ")
+if (nrf-serial IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-serial)
 	add_definitions(-DNRF_SERIAL_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -388,7 +392,7 @@ if (NRF5_LIBS MATCHES " nrf-serial ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-simple-timer ")
+if (nrf-simple-timer IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-simple-timer)
 	add_definitions(-DSIMPLE_TIMER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -396,7 +400,7 @@ if (NRF5_LIBS MATCHES " nrf-simple-timer ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-spi-mngr ")
+if (nrf-spi-mngr IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-spi-mngr)
 	add_definitions(-DNRF_SPI_MNGR_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -404,7 +408,7 @@ if (NRF5_LIBS MATCHES " nrf-spi-mngr ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-strerror ")
+if (nrf-strerror IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-strerror)
 	add_definitions(-DNRF_STRERROR_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -412,14 +416,14 @@ if (NRF5_LIBS MATCHES " nrf-strerror ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-timer ")
+if (nrf-timer IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-timer)
 	add_definitions(-DAPP_TIMER_ENABLED=1)
-	if (NRF5_LIBS MATCHES " freertos ")
+	if (freertos IN_LIST NRF5_MODULES)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/timer/app_timer_freertos.c
 		)
-	elseif (NRF5_LIBS MATCHES " rtx ")
+	elseif (rtx IN_LIST NRF5_MODULES)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/timer/app_timer_rtx.c
 		)
@@ -430,9 +434,9 @@ if (NRF5_LIBS MATCHES " nrf-timer ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-uart ")
+if (nrf-uart IN_LIST NRF5_MODULES)
 	add_definitions(-DAPP_UART_ENABLED=1)
-	if (NOT NRF5_LIBS MATCHES " nrf-uart-fifo ")
+	if (NOT (nrf-uart-fifo IN_LIST NRF5_MODULES))
 		print_lib_usage(nrf-uart)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/uart/app_uart.c
@@ -440,14 +444,14 @@ if (NRF5_LIBS MATCHES " nrf-uart ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-uart-fifo ")
+if (nrf-uart-fifo IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-uart-fifo)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/uart/app_uart_fifo.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-uart-retarget ")
+if (nrf-uart-retarget IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-uart-retarget)
 	add_definitions(-DRETARGET_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -455,11 +459,11 @@ if (NRF5_LIBS MATCHES " nrf-uart-retarget ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-usbd ")
-	print_lib_usage(nrf-usbd)
+if (nrf-usbd IN_LIST NRF5_MODULES)
 	if (NOT(NRF5_TARGET MATCHES "nRF52840"))
 		message(WARNING "USB library applicable only to nRF52840 -- skipped")
 	else()
+		print_lib_usage(nrf-usbd)
 		add_definitions(-DAPP_USBD_ENABLED=1)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/usbd/app_usbd.c
@@ -469,11 +473,11 @@ if (NRF5_LIBS MATCHES " nrf-usbd ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-usbd-class-audio ")
-	print_lib_usage(nrf-usbd-class-audio)
+if (nrf-usbd-class-audio IN_LIST NRF5_MODULES)
 	if (NOT(NRF5_TARGET MATCHES "nRF52840"))
 		message(WARNING "USB library applicable only to nRF52840 -- skipped")
 	else()
+		print_lib_usage(nrf-usbd-class-audio)
 		add_definitions(-DAPP_USBD_CLASS_AUDIO_ENABLED=1)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/usbd/class/audio/app_usbd_audio.c
@@ -481,11 +485,11 @@ if (NRF5_LIBS MATCHES " nrf-usbd-class-audio ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-usbd-class-cdc ")
-	print_lib_usage(nrf-usbd-class-cdc)
+if (nrf-usbd-class-cdc IN_LIST NRF5_MODULES)
 	if (NOT(NRF5_TARGET MATCHES "nRF52840"))
 		message(WARNING "USB library applicable only to nRF52840 -- skipped")
 	else()
+		print_lib_usage(nrf-usbd-class-cdc)
 		add_definitions(-DAPP_USBD_CLASS_CDC_ACM_ENABLED=1)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c
@@ -493,11 +497,11 @@ if (NRF5_LIBS MATCHES " nrf-usbd-class-cdc ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-usbd-class-hid ")
-	print_lib_usage(nrf-usbd-class-hid)
+if (nrf-usbd-class-hid IN_LIST NRF5_MODULES)
 	if (NOT(NRF5_TARGET MATCHES "nRF52840"))
 		message(WARNING "USB library applicable only to nRF52840 -- skipped")
 	else()
+		print_lib_usage(nrf-usbd-class-hid)
 		add_definitions(-DAPP_USBD_CLASS_HID_ENABLED=1)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/libraries/usbd/class/hid/app_usbd_hid.c
@@ -505,7 +509,7 @@ if (NRF5_LIBS MATCHES " nrf-usbd-class-hid ")
 	endif()
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-utils ")
+if (nrf-utils IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-utils)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/libraries/util/app_error.c

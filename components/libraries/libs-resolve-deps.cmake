@@ -64,7 +64,7 @@ set(nrf-usbd-class-hid-mouse-name "Nordic USB HID Mouse class")
 set(nrf-usbd-class-msc-name "Nordic USB MSC class")
 set(nrf-utils-name "Nordic Utilities library")
 
-list(APPEND NRF5_LIB_LIST
+list(APPEND NRF5_MODULES_LIST
 	nrf-atomic-fifo
 	nrf-balloc
 	nrf-block-dev-empty
@@ -125,12 +125,8 @@ list(APPEND NRF5_LIB_LIST
 	nrf-utils
 )
 
-if (DEFINED NRF5_SOFTDEVICE AND NOT(NRF5_LIBS MATCHES " nrf-section-vars "))
-#	message(STATUS "Adding dependency `${nrf-section-vars-name}`, required by Softdevice")
+if (DEFINED NRF5_SOFTDEVICE)
 	add_dependency(nrf-section-vars)
-endif()
-if (DEFINED NRF5_SOFTDEVICE AND NOT(NRF5_LIBS MATCHES " nrf-utils "))
-#	message(STATUS "Adding dependency `${nrf-utils-name}`, required by Softdevice")
 	add_dependency(nrf-utils)
 endif()
 
@@ -162,6 +158,7 @@ check_dependency(nrf-fds nrf-crc16)
 check_dependency(nrf-fstorage nrf-atomic-fifo)
 check_dependency(nrf-fstorage-nvmc nrf-drv-nvmc)
 check_dependency(nrf-led-softblink nrf-low-power-pwm)
+check_dependency(nrf-log nrf-memobj)
 check_dependency(nrf-log-rtt nrf-log)
 check_dependency(nrf-log-rtt segger-rtt)
 check_dependency(nrf-log-uart nrf-log)
@@ -197,13 +194,13 @@ check_dependency(nrf-usbd-class-hid nrf-usbd)
 check_dependency(nrf-usbd-class-msc nrf-usbd)
 check_dependency(nrf-usbd nrf-drv-usbd)
 
-if (NRF5_LIBS MATCHES " nrf-log ")
+if (nrf-log IN_LIST NRF5_MODULES)
 	check_dependency(nrf-log nrf-cli)
 	check_dependency(nrf-cli nrf-queue)
 	check_dependency(nrf-utils nrf-strerror)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-fstorage ")
+if (nrf-fstorage IN_LIST NRF5_MODULES)
 	if (DEFINED NRF5_SOFTDEVICE)
 		add_dependency(nrf-fstorage-sd)
 	else()

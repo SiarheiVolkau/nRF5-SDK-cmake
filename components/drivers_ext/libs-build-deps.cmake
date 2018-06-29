@@ -5,7 +5,7 @@
 #
 #******************************************************************************
 
-if (NRF5_LIBS MATCHES " drv-ili9341 ")
+if (drv-ili9341 IN_LIST NRF5_MODULES)
 	print_lib_usage(drv-ili9341)
 	add_definitions(-DILI9341_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -13,7 +13,7 @@ if (NRF5_LIBS MATCHES " drv-ili9341 ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " drv-st7735 ")
+if (drv-st7735 IN_LIST NRF5_MODULES)
 	print_lib_usage(drv-st7735)
 	add_definitions(-DST7735_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}

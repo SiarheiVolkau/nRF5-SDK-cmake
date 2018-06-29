@@ -5,7 +5,7 @@
 #
 #******************************************************************************
 
-if (NRF5_LIBS MATCHES " nrf-nfc-ndef ")
+if (nrf-nfc-ndef IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-nfc-ndef)
 
 	add_definitions(-DNFC_NDEF_MSG_ENABLED=1)
@@ -36,7 +36,7 @@ if (NRF5_LIBS MATCHES " nrf-nfc-ndef ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-nfc-t2t ")
+if (nrf-nfc-t2t IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-nfc-t2t)
 	add_definitions(-DNFC_T2T_HAL_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -47,7 +47,7 @@ if (NRF5_LIBS MATCHES " nrf-nfc-t2t ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-nfc-t4t ")
+if (nrf-nfc-t4t IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-nfc-t4t)
 	add_definitions(-DNFC_T4T_HAL_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -58,7 +58,7 @@ if (NRF5_LIBS MATCHES " nrf-nfc-t4t ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-nfc-t2t-parser ")
+if (nrf-nfc-t2t-parser IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-nfc-t2t-parser)
 	add_definitions(-DNFC_T2T_PARSER_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -66,7 +66,7 @@ if (NRF5_LIBS MATCHES " nrf-nfc-t2t-parser ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-nfc-t4t-parser ")
+if (nrf-nfc-t4t-parser IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-nfc-t4t-parser)
 	add_definitions(-DNFC_T4T_APDU_ENABLED=1)
 	add_definitions(-DNFC_T4T_CC_FILE_PARSER_ENABLED=1)
@@ -80,7 +80,7 @@ if (NRF5_LIBS MATCHES " nrf-nfc-t4t-parser ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-nfc-ble-pair ")
+if (nrf-nfc-ble-pair IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-nfc-ble-pair)
 
 	add_definitions(-DNFC_AC_REC_ENABLED=1)

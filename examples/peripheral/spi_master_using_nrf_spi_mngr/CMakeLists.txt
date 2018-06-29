@@ -11,7 +11,7 @@
 #
 #******************************************************************************
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.3)
 
 # uncomment and edit to use its own compiler tool
 #set(TOOLCHAIN_PATH "/usr/local/gcc-arm-none-eabi-5_4-2016q3/bin")
@@ -19,9 +19,9 @@ cmake_minimum_required(VERSION 2.8)
 set(NRF5_SDK_ROOT "../../..")
 
 # target chip variant values are nRF52810 nRF52832 nRF52832_XXAB nRF52840
-set(NRF5_TARGET "nRF52832" CACHE STRING "Target SoC" FORCE)
+set(NRF5_TARGET "nRF52832" CACHE STRING "Target SoC")
 # target board variant
-set(NRF5_TARGET_BOARD "PCA10040" CACHE STRING "Target Board" FORCE)
+set(NRF5_TARGET_BOARD "PCA10040" CACHE STRING "Target Board")
 
 set(CMAKE_TOOLCHAIN_FILE "${NRF5_SDK_ROOT}/compiler-gcc.cmake")
 
@@ -32,8 +32,11 @@ enable_language(ASM)
 # newlib variant nano or full
 set(NEWLIB "full")
 
-# used SDK libs
-set(NRF5_LIBS "nrf-utils nrf-timer nrf-drv-clock nrf-bsp nrf-pwr-mgmt nrf-gfx nrf-spi-mngr font-orkney nrf-log-uart nrf-log-rtt")
+# used SDK modules
+set(NRF5_MODULES
+	nrf-utils nrf-timer nrf-drv-clock nrf-bsp nrf-pwr-mgmt
+	nrf-gfx nrf-spi-mngr font-orkney nrf-log-uart nrf-log-rtt
+)
 
 # SPI0 related to ST7565_SPI_INSTANCE_ID definition
 add_definitions(-DSPI0_ENABLED=1)
@@ -42,9 +45,6 @@ add_definitions(-DNRF_SPI_DRV_MISO_PULLUP_CFG=NRF_GPIO_PIN_PULLDOWN)
 
 # variants are s112 s132 s140 s212 s332
 #set(NRF5_SOFTDEVICE "s132")
-
-# custom memory layout linker script
-# set(LINKER_SCRIPT "ldscript.ld")
 
 include("${NRF5_SDK_ROOT}/sdk-gcc.cmake")
 
@@ -56,8 +56,9 @@ add_executable(${CMAKE_PROJECT_NAME}
 	st7565LCD.c
 
 # sources resolved automatically depending
-# on selected libs above (NRF5_LIBS)
+# on selected libs above (NRF5_MODULES)
 	${NRF5_SOURCES}
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".elf")
+target_link_libraries(${CMAKE_PROJECT_NAME} ${NRF5_LINK_LIBRARIES})

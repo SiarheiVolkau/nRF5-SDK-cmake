@@ -5,7 +5,7 @@
 #
 #******************************************************************************
 
-if (NRF5_LIBS MATCHES " fatfs ")
+if (fatfs IN_LIST NRF5_MODULES)
 	print_lib_usage(fatfs)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/external/fatfs/port/diskio_blkdev.c
@@ -14,7 +14,7 @@ if (NRF5_LIBS MATCHES " fatfs ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " font-orkney ")
+if (font-orkney IN_LIST NRF5_MODULES)
 	print_lib_usage(font-orkney)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/external/thedotfactory_fonts/orkney8pts.c
@@ -22,7 +22,7 @@ if (NRF5_LIBS MATCHES " font-orkney ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " freertos ")
+if (freertos IN_LIST NRF5_MODULES)
 	print_lib_usage(freertos)
 	add_definitions(-DFREERTOS)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -39,7 +39,7 @@ if (NRF5_LIBS MATCHES " freertos ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-fprintf ")
+if (nrf-fprintf IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-fprintf)
 	add_definitions(-DNRF_FPRINTF_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -48,7 +48,7 @@ if (NRF5_LIBS MATCHES " nrf-fprintf ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " segger-rtt ")
+if (segger-rtt IN_LIST NRF5_MODULES)
 	print_lib_usage(segger-rtt)
 	add_definitions(-DSEGGER_RTT_CONFIG_DEFAULT_MODE=0)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -56,7 +56,7 @@ if (NRF5_LIBS MATCHES " segger-rtt ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " micro-ecc ")
+if (micro-ecc IN_LIST NRF5_MODULES)
 	print_lib_usage(micro-ecc)
 
 	if (NOT EXISTS ${NRF5_SDK_ROOT}/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a)

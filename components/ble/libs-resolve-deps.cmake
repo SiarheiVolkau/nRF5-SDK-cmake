@@ -14,7 +14,7 @@ set(nrf-ble-gatt-name "Nordic BLE GATT module")
 set(nrf-ble-peer-manager-name "Nordic BLE Peer manager module")
 set(nrf-ble-peripheral-name "Nordic BLE Peripheral module")
 
-list(APPEND NRF5_LIB_LIST
+list(APPEND NRF5_MODULES_LIST
 	nrf-ble
 	nrf-ble-advertising
 	nrf-ble-central
@@ -25,7 +25,7 @@ list(APPEND NRF5_LIB_LIST
 	nrf-ble-peripheral
 )
 
-if (NOT DEFINED NRF5_SOFTDEVICE AND NRF5_LIBS MATCHES " nrf-ble")
+if (NOT DEFINED NRF5_SOFTDEVICE AND nrf-ble IN_LIST NRF5_MODULES)
 	message(FATAL_ERROR "Enable Softdevice to use nRF BLE stack")
 else()
 	check_dependency(nrf-ble-advertising nrf-ble)

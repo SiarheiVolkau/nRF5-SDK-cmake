@@ -12,7 +12,7 @@ set(micro-ecc-name "Micro ECC library")
 set(nrf-fprintf-name "Nordic fprintf like function")
 set(segger-rtt-name "Segger RTT library")
 
-list(APPEND NRF5_LIB_LIST
+list(APPEND NRF5_MODULES_LIST
 	fatfs
 	font-orkney
 	freertos

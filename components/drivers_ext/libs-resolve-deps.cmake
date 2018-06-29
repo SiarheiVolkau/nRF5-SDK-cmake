@@ -8,7 +8,7 @@
 set(drv-ili9341-name "Ilitek ILI9341 SPI TFT LCD driver")
 set(drv-st7735-name "Sitronix ST7735 SPI TFT LCD driver")
 
-list(APPEND NRF5_LIB_LIST
+list(APPEND NRF5_MODULES_LIST
 	drv-ili9341
 	drv-st7735
 )

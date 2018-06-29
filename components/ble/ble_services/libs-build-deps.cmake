@@ -5,7 +5,7 @@
 #
 #******************************************************************************
 
-if (NRF5_LIBS MATCHES " nrf-blesvc-bas ")
+if (nrf-blesvc-bas IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-blesvc-bas)
 	add_definitions(-DBLE_BAS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -13,7 +13,7 @@ if (NRF5_LIBS MATCHES " nrf-blesvc-bas ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-blesvc-dis ")
+if (nrf-blesvc-dis IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-blesvc-dis)
 	add_definitions(-DBLE_DIS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -21,7 +21,7 @@ if (NRF5_LIBS MATCHES " nrf-blesvc-dis ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-blesvc-hrs ")
+if (nrf-blesvc-hrs IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-blesvc-hrs)
 	add_definitions(-DBLE_HRS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -29,7 +29,7 @@ if (NRF5_LIBS MATCHES " nrf-blesvc-hrs ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-blesvc-lbs ")
+if (nrf-blesvc-lbs IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-blesvc-lbs)
 	add_definitions(-DBLE_LBS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -37,7 +37,7 @@ if (NRF5_LIBS MATCHES " nrf-blesvc-lbs ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-blesvc-lbs-client ")
+if (nrf-blesvc-lbs-client IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-blesvc-lbs-client)
 	add_definitions(-DBLE_LBS_C_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -45,7 +45,7 @@ if (NRF5_LIBS MATCHES " nrf-blesvc-lbs-client ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-blesvc-nus ")
+if (nrf-blesvc-nus IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-blesvc-nus)
 	add_definitions(-DBLE_NUS_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
@@ -53,7 +53,7 @@ if (NRF5_LIBS MATCHES " nrf-blesvc-nus ")
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " nrf-blesvc-nus-client ")
+if (nrf-blesvc-nus-client IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-blesvc-nus-client)
 	add_definitions(-DBLE_NUS_C_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}

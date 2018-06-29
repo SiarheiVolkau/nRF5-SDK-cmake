@@ -5,8 +5,8 @@
 #
 #******************************************************************************
 
-set(CMAKE_SYSTEM_NAME "Nordic nRF5x")
-set(CMAKE_SYSTEM_VERSION "SDK 14.2.0")
+set(CMAKE_SYSTEM_NAME "Generic")
+set(CMAKE_SYSTEM_VERSION "Nordic nRF5 SDK 14.2.0")
 set(CMAKE_SYSTEM_PROCESSOR "Cortex M")
 
 set(ARM_GCC_COMPILER "arm-none-eabi-gcc${CMAKE_EXECUTABLE_SUFFIX}")

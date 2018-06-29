@@ -16,7 +16,7 @@ set(nrf-blesvc-lbs-client-name "Nordic BLE LED Button Service Client")
 set(nrf-blesvc-nus-name "Nordic BLE Nordic UART Service")
 set(nrf-blesvc-nus-client-name "Nordic BLE Nordic UART Service Client")
 
-list(APPEND NRF5_LIB_LIST
+list(APPEND NRF5_MODULES_LIST
 	nrf-blesvc-bas
 	nrf-blesvc-battery
 	nrf-blesvc-dis

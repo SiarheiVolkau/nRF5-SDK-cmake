@@ -5,8 +5,10 @@
 #
 #******************************************************************************
 
-set(NRF5_SOURCES "" CACHE INTERNAL "")
-set(NRF5_LINK_LIBRARIES "" CACHE INTERNAL "")
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+
+set(NRF5_SOURCES "${NRF5_SOURCES}" CACHE INTERNAL "")
+set(NRF5_LINK_LIBRARIES "${NRF5_LINK_LIBRARIES}" CACHE INTERNAL "")
 
 if (NRF5_TARGET MATCHES "nRF52")
 	set(GCC_ARM_CPU_VARIANT "cortex-m4")
@@ -22,7 +24,6 @@ if (NRF5_TARGET MATCHES "nRF52")
 			"For now valid targets are: nRF52810 nRF52832 nRF52840."
 		)
 	endif()
-	add_definitions(-DNRF52)
 elseif(NRF5_TARGET MATCHES "nRF51")
 	add_definitions(-DNRF51)
 	message(FATAL_ERROR "nRF51 targets not supported yet.")
@@ -126,7 +127,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS} -Os")
 message(STATUS "nRF5 SDK path: ${NRF5_SDK_ROOT}")
 message(STATUS "Toolchain path: ${TOOLCHAIN_PATH}")
 
-set(NRF5_LIBS " ${NRF5_LIBS} ")
+include(${CMAKE_CURRENT_LIST_DIR}/functions.cmake)
 
 #
 # board definition
@@ -147,21 +148,15 @@ if (NRF5_TARGET_BOARD STREQUAL NRF6310
     OR NRF5_TARGET_BOARD STREQUAL D52DK1
     OR NRF5_TARGET_BOARD STREQUAL ARDUINO_PRIMO)
 	add_definitions(-DBOARD_${NRF5_TARGET_BOARD})
-	if (NOT (NRF5_LIBS MATCHES " nrf-board "))
-		set(NRF5_LIBS "${NRF5_LIBS} nrf-board ")
-	endif()
+	add_dependency(nrf-board)
 elseif (DEFINED CUSTOM_BOARD_INCLUDE)
 	add_definitions(-DCUSTOM_BOARD_INC="${CUSTOM_BOARD_INCLUDE}")
-	if (NOT (NRF5_LIBS MATCHES " nrf-board "))
-		set(NRF5_LIBS "${NRF5_LIBS} nrf-board ")
-	endif()
+	add_dependency(nrf-board)
 else()
 	message(FATAL_ERROR "NRF5_TARGET_BOARD not found, define it or define CUSTOM_BOARD_INCLUDE header file.\n"
 		"valid boards are: NRF6310, PCA10000, PCA10001, PCA10002, PCA10003, PCA10006, PCA10028, PCA10031, "
 		"PCA10036, PCA10040, PCA10056, PCA20020, WT51822, ARDUINO_PRIMO, N5DK1 and D52DK1.")
 endif()
-
-include(${CMAKE_CURRENT_LIST_DIR}/functions.cmake)
 
 #
 # resolve dependencies
@@ -187,6 +182,17 @@ if (DEFINED NRF5_SOFTDEVICE)
 		message(FATAL_ERROR "Misconfiguration: NRF5_SOFTDEVICE s332 should be used with nRF52832 NRF5_TARGET only.")
 	elseif (NRF5_SOFTDEVICE STREQUAL "s140" AND NOT(NRF5_TARGET MATCHES "nRF52840"))
 		message(FATAL_ERROR "Misconfiguration: NRF5_SOFTDEVICE s140 should be used with nRF52840 NRF5_TARGET only.")
+	endif()
+	if (NRF5_SOFTDEVICE STREQUAL "s112")
+		add_definitions(-DS112)
+	elseif (NRF5_SOFTDEVICE STREQUAL "s132")
+		add_definitions(-DS132)
+	elseif (NRF5_SOFTDEVICE STREQUAL "s212")
+		add_definitions(-DS212)
+	elseif (NRF5_SOFTDEVICE STREQUAL "s332")
+		add_definitions(-DS332)
+	elseif (NRF5_SOFTDEVICE STREQUAL "s140")
+		add_definitions(-DS140)
 	endif()
 	add_definitions(-DSOFTDEVICE_PRESENT)
 	add_definitions(-DNRF_SDH_ENABLED=1)
@@ -217,18 +223,18 @@ if (DEFINED NRF5_SOFTDEVICE)
 		)
 	endif()
 
-	if (NRF5_LIBS MATCHES " freertos ")
+	if (freertos IN_LIST NRF5_MODULES)
 		add_definitions(-DNRF_SDH_DISPATCH_MODEL=2)
 		set(NRF5_SOURCES ${NRF5_SOURCES}
 			${NRF5_SDK_ROOT}/components/softdevice/common/nrf_sdh_freertos.c
 		)
-	elseif(NRF5_LIBS MATCHES " nrf-scheduler ")
+	elseif(nrf-scheduler IN_LIST NRF5_MODULES)
 		add_definitions(-DNRF_SDH_DISPATCH_MODEL=1)
 	else()
 		add_definitions(-DNRF_SDH_DISPATCH_MODEL=0)
 	endif()
 
-	if (NRF5_LIBS MATCHES " nrf-log ")
+	if (nrf-log IN_LIST NRF5_MODULES)
 		add_definitions(-DNRF_SDH_SOC_LOG_ENABLED=1)
 	endif()
 else()
@@ -247,6 +253,7 @@ if (NRF5_TARGET MATCHES "nRF52840")
 	)
 	set_property(SOURCE ${NRF5_SDK_ROOT}/components/toolchain/gcc/gcc_startup_nrf52840.S PROPERTY LANGUAGE ASM)
 	add_definitions(-DNRF52840_XXAA)
+	remove_definitions(-DNRF52832_XXAA -DNRF52832_XXAB)
 elseif (NRF5_TARGET MATCHES "nRF52832")
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/toolchain/system_nrf52.c

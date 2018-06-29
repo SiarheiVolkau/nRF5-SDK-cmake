@@ -27,4 +27,6 @@ endforeach(dir)
 set(nrf-board-name "nRF5 Board Definition")
 set(cmsis-dsp-name "CMSIS DSP for ARM library")
 
-list(APPEND NRF5_LIB_LIST nrf-board cmsis-dsp)
+list(APPEND NRF5_MODULES_LIST nrf-board cmsis-dsp)
+
+check_dependency(nrf-board nrf-utils)

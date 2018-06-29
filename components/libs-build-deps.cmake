@@ -23,14 +23,14 @@ foreach(dir ${dirs_list})
 	include(${CMAKE_CURRENT_LIST_DIR}/${dir}/libs-build-deps.cmake)
 endforeach(dir)
 
-if (NRF5_LIBS MATCHES " nrf-board ")
+if (nrf-board IN_LIST NRF5_MODULES)
 	print_lib_usage(nrf-board)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/boards/boards.c
 	)
 endif()
 
-if (NRF5_LIBS MATCHES " cmsis-dsp ")
+if (cmsis-dsp IN_LIST NRF5_MODULES)
 	print_lib_usage(cmsis-dsp)
 	if (NRF5_TARGET MATCHES "nRF52832" OR NRF5_TARGET MATCHES "nRF52840")
 		add_definitions(-DARM_MATH_CM4)

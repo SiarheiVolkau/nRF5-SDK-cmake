@@ -12,7 +12,7 @@ set(nrf-nfc-t2t-parser-name "Nordic NFC Type 2 Tag parser")
 set(nrf-nfc-t4t-parser-name "Nordic NFC Type 4 Tag parser")
 set(nrf-nfc-ble-pair-name "Nordic BLE pairing via NFC library")
 
-list(APPEND NRF5_LIB_LIST
+list(APPEND NRF5_MODULES_LIST
 	nrf-nfc-ndef
 	nrf-nfc-t2t
 	nrf-nfc-t4t

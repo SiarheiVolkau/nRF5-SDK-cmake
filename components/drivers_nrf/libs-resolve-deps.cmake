@@ -28,7 +28,7 @@ set(nrf-drv-twi-slave-name "Nordic Two Wire slave interface (TWIS) driver")
 set(nrf-drv-uart-name "Nordic UART driver")
 set(nrf-drv-usbd-name "Nordic USB Device driver")
 
-list(APPEND NRF5_LIB_LIST
+list(APPEND NRF5_MODULES_LIST
 	nrf-drv-clock
 	nrf-drv-common
 	nrf-drv-gpiote
@@ -76,9 +76,9 @@ check_dependency(nrf-drv-uart nrf-drv-common)
 check_dependency(nrf-drv-usbd nrf-drv-common)
 check_dependency(nrf-drv-usbd nrf-drv-systick)
 
-if (NRF5_LIBS MATCHES " nrf-drv-qspi " AND NOT NRF5_TARGET MATCHES "nRF52840")
+if (nrf-drv-qspi IN_LIST NRF5_MODULES AND NOT NRF5_TARGET MATCHES "nRF52840")
 	message(FATAL_ERROR "${nrf-drv-qspi-name} not available on selected target (${NRF5_TARGET}).")
 endif()
-if (NRF5_LIBS MATCHES " nrf-drv-usbd " AND NOT NRF5_TARGET MATCHES "nRF52840")
+if (nrf-drv-usbd IN_LIST NRF5_MODULES AND NOT NRF5_TARGET MATCHES "nRF52840")
 	message(FATAL_ERROR "${nrf-drv-usbd-name} not available on selected target (${NRF5_TARGET}).")
 endif()
