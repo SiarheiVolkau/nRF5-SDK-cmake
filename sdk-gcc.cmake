@@ -115,11 +115,17 @@ set(STARTFILES "'${CRT0_OBJ_PATH}' '${CRTI_OBJ_PATH}' '${CRTN_OBJ_PATH}'")
 #
 # define volatile compiler flags
 #
-set(CMAKE_C_FLAGS "${CPU_FLAGS} -std=c99 -ffunction-sections -fdata-sections -g3 -Wall")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -O0 -DDEBUG -DDEBUG_NRF" CACHE STRING "Debug compiler flags" FORCE)
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} -Os" CACHE STRING "Release compiler flags" FORCE)
-set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS} -Os")
-set(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS} -Os")
+set(CMAKE_C_FLAGS "${CPU_FLAGS} -std=c99 -ffunction-sections -fdata-sections -fshort-enums -g3 -Wall")
+set(CMAKE_C_FLAGS_DEBUG "-O0 -DDEBUG -DDEBUG_NRF" CACHE STRING "Debug compiler flags")
+set(CMAKE_C_FLAGS_RELEASE "-O2" CACHE STRING "Release compiler flags")
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2" CACHE STRING "Release with debug info flags")
+set(CMAKE_C_FLAGS_MINSIZEREL "-Os" CACHE STRING "Min size release flags")
+
+set(CMAKE_ASM_FLAGS ${CMAKE_C_FLAGS})
+set(CMAKE_ASM_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG} CACHE STRING "Debug compiler flags (asm)")
+set(CMAKE_ASM_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE} CACHE STRING "Release compiler flags (asm)")
+set(CMAKE_ASM_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO} CACHE STRING "Release with debug info flags (asm)")
+set(CMAKE_ASM_FLAGS_MINSIZEREL ${CMAKE_C_FLAGS_MINSIZEREL} CACHE STRING "Min size release flags (asm)")
 
 #
 # print some debug info
