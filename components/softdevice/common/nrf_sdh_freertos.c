@@ -51,8 +51,9 @@
 #include "nrf_log.h"
 NRF_LOG_MODULE_REGISTER();
 
+#ifndef NRF_BLE_FREERTOS_SDH_TASK_STACK
 #define NRF_BLE_FREERTOS_SDH_TASK_STACK 256
-
+#endif
 
 static TaskHandle_t                 m_softdevice_task;  //!< Reference to SoftDevice FreeRTOS task.
 static nrf_sdh_freertos_task_hook_t m_task_hook;        //!< A hook function run by the SoftDevice task before entering its loop.
