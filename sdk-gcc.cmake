@@ -250,6 +250,13 @@ else()
 	include_directories(${NRF5_SDK_ROOT}/components/drivers_nrf/nrf_soc_nosd)
 endif()
 
+foreach(LOOP_VAR IN LISTS NRF5_MODULES)
+	if (NOT (${LOOP_VAR} IN_LIST NRF5_MODULES_LIST))
+		message(WARNING "Unknown module ${LOOP_VAR}. Build list-all-modules target to see complete list of available modules.")
+	endif()
+endforeach(LOOP_VAR)
+
+
 include(${CMAKE_CURRENT_LIST_DIR}/libs-build-deps.cmake)
 
 #
