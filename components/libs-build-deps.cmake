@@ -40,8 +40,7 @@ if (cmsis-dsp IN_LIST NRF5_MODULES)
 		set(NRF5_LINK_LIBRARIES ${NRF5_LINK_LIBRARIES} ${NRF5_SDK_ROOT}/components/toolchain/cmsis/dsp/GCC/libarm_cortexM4l_math.a)
 	else() # nrf51 falls here too
 		message(FATAL_ERROR
-			"Please set valid NRF5_TARGET."
-			"For now valid targets are: nRF52810 nRF52832 nRF52840."
+			"Unsupported NRF5_TARGET."
 		)
 	endif()
 endif()

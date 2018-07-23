@@ -167,6 +167,9 @@ else()
 endif()
 set_property(CACHE NRF5_TARGET_BOARD PROPERTY STRINGS ${SUPPORTED_BOARDS})
 
+set (NRF5_MAIN_STACK_SIZE 0x2000 CACHE STRING "Size of Main Stack Frame")
+add_definitions(-D__STACK_SIZE=${NRF5_MAIN_STACK_SIZE})
+
 #
 # resolve dependencies
 #

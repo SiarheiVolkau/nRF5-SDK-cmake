@@ -133,32 +133,40 @@ SECTIONS
         __bss_end__ = .;
     } > RAM
 
-    .heap (COPY):
+    /* .stack_dummy section doesn't contains any symbols. It is only
+     * used for linker to calculate size of stack sections, and assign
+     * values to stack symbols later */
+    .stack_dummy 0x0 (NOLOAD):
+    {
+        KEEP(*(.stack*))
+    } : NONE
+
+    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
+    __StackBottom = __StackTop - SIZEOF(.stack_dummy);
+    __HeapSize = __StackBottom - __bss_end__;
+    PROVIDE(__stack = __StackTop);
+
+    /* Check if data + heap + stack exceeds RAM limit */
+    ASSERT(__HeapSize > 0, ".heap not fit in RAM")
+
+    .heap (NOLOAD):
     {
         __HeapBase = .;
         __end__ = .;
         PROVIDE(end = .);
-        KEEP(*(.heap*))
+
+        . = . + __HeapSize;
         __HeapLimit = .;
     } > RAM
 
-    /* .stack_dummy section doesn't contains any symbols. It is only
-     * used for linker to calculate size of stack sections, and assign
-     * values to stack symbols later */
-    .stack_dummy (COPY):
-    {
-        KEEP(*(.stack*))
-    } > RAM
 
     /* Set stack top to end of RAM, and stack limit move down by
      * size of stack_dummy section */
-    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
-    __StackLimit = __StackTop - SIZEOF(.stack_dummy);
-    PROVIDE(__stack = __StackTop);
+    .stack (NOLOAD):
+    {
+        . = . + SIZEOF(.stack_dummy);
+    } > RAM
 
-    /* Check if data + heap + stack exceeds RAM limit */
-    ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
-    
     /* Check if text sections + data exceeds FLASH limit */
     DataInitFlashUsed = __bss_start__ - __data_start__;
     CodeFlashUsed = __etext - ORIGIN(FLASH);
