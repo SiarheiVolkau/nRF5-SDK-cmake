@@ -60,7 +60,7 @@ if (nrf-drv-ppi IN_LIST NRF5_MODULES)
 endif()
 
 if (nrf-drv-pwm IN_LIST NRF5_MODULES)
-	print_lib_usage(nrfff14764c624f43bfd2d5585e627c4c6cdf0c551f-drv-pwm)
+	print_lib_usage(nrf-drv-pwm)
 	add_definitions(-DPWM_ENABLED=1)
 	set(NRF5_SOURCES ${NRF5_SOURCES}
 		${NRF5_SDK_ROOT}/components/drivers_nrf/pwm/nrf_drv_pwm.c
